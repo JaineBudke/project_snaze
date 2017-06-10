@@ -21,13 +21,14 @@ Manager::SnakeError::error Manager::initialize( char * arq ){
     arquivo >> levels_;
 
     std::vector<std::vector<std::string>> tabuleiro;
+    std::vector<Game::Position> tamTabuleiros;
 
     Game::Position tamanho;
     std::string linhaBoard;
+
     // enquanto tiver coisa no arquivo
     for( int i=0; i<levels_; i++ ){
 
-        std::vector<Game::Position> tamTabuleiros;
         std::vector<std::string> linhasTabuleiro;
 
         arquivo >> tamanho.y; // le quantidade de linhas
@@ -35,21 +36,19 @@ Manager::SnakeError::error Manager::initialize( char * arq ){
 
         tamTabuleiros.push_back( tamanho );
 
-        std::cout << "Linhas = " << tamanho.y << " e colunas = " << tamanho.x << "\n";
-
         for( int j=0; j<=tamanho.y; j++ ){
 
             getline( arquivo, linhaBoard );
-            std::cout << linhaBoard << "\n";
             linhasTabuleiro.push_back(linhaBoard);
         }
 
-        tabuleiro.push_back( linhasTabuleiro );
+        tabuleiro.push_back( linhasTabuleiro ); // set tabuleiros
 
     }
-
-    // TODO
-    // Ler informacoes do arquivo e inicializar o game
+   
+    gm.setLevels( levels_ );           // set levels
+    gm.setSizeBoards( tamTabuleiros ); // set tamanho dos tabuleiros
+    gm.setBoards( tabuleiro );         // set tabuleiros
 
 }
 
@@ -57,9 +56,11 @@ Manager::SnakeError::error Manager::initialize( char * arq ){
 //** @brief Exibe as informações iniciais e condição geral do jogo.
 void Manager::welcome(){
 
+    int n_levels = gm.getLevels();
+
     std::cout << ">>> Bem-vindo ao Snake!\n";
     std::cout << ">>> Esta é uma simulação com os dados de entrada fornecidos.\n";
-    std::cout << ">>> O jogo possui x fases e você tem x vidas! Boa sorte!";
+    std::cout << ">>> O jogo possui " << n_levels << " fases e você tem 10 vidas! Boa sorte!\n";
     std::cout << ">>> Pressione alguma tecla quando estiver pronto para começar.";
     std::string dummy;
     std::getline( std::cin, dummy );
@@ -129,7 +130,7 @@ void Manager::render_log(){
     if( result == false ){
         std::cout << ">>> Que pena... Parece que suas vidas terminaram\n";
         std::cout << ">>> Que tal começar um novo jogo? Talvez você tenha mais sorte da próxima vez\n";
-        std::cout << ">>> Boa sorte! ;)";
+        std::cout << ">>> Boa sorte! ;)\n";
     }
 
 }
