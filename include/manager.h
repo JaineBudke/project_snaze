@@ -12,7 +12,8 @@
 
 #include <vector>
 #include <string>
-
+#include <fstream>
+#include <iostream>
 
 /**
  *  Essa eh a classe Manager
@@ -29,7 +30,8 @@ class Manager {
 			enum error {
 		        BOARD_OK = 0,      // Arquivo lido corretamente
 		        MISSING_START,	   // Não há posição inicial
-		        EXTRANEOUS_SYMBOL  // Encontrado símbolo diferente de '#', ' ', '*', '.'
+		        EXTRANEOUS_SYMBOL, // Encontrado símbolo diferente de '#', ' ', '*', '.'
+		        ARCHIVE_NOT_FIND   // Arquivo nao encontrado
 			};
 
 			//=== Members (public).
@@ -46,7 +48,7 @@ class Manager {
 		/** @brief Inicializa lendo o arquivo de entrada fornecido pelo jogador.
 	        @param arq Nome do arquivo de entrada.
 	        @return Se arquivo foi lido corretamente ou aponta o erro identificado. */
-		SnakeError initialize( char * arq );
+		SnakeError::error initialize( char * arq );
 
 
 		//** @brief Exibe as informações iniciais e condição geral do jogo.

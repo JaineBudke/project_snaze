@@ -51,7 +51,7 @@ class Game {
 		// ======================================================
 		// ACTIONS 
 		// ======================================================
-
+		
 		/** @brief Lança uma maçã no jogo, dentro das coordenadas do tabuleiro da fase.
 	        @return Posicao em que a maçã foi lançada */
 		Position throwApple();
@@ -98,6 +98,16 @@ class Game {
             @return As fases. */
         int getLevels( void ) const;
 
+        /** @brief Define a fase atual que o jogador se encontra.
+            @param level_ A fase
+            @return True se tiver um numero de fases maior que zero; False otherwise. */
+        bool setCurrentLevel( int level_ );
+
+
+		/** @brief Recupera a fase atual do jogo.
+            @return A fase. */
+        int getCurrentLevel( void ) const;
+
 
         /** @brief Define um vetor com os tabuleiros do jogo.
             @param boards_ Os tabuleiros
@@ -110,21 +120,32 @@ class Game {
         std::vector<std::vector<std::string>> getBoards( void ) const;     
 
 
-        /** @brief Define a quantidade de vidas do jogador.
-            @param lives_ As vidas
-            @return True se tiver um numero de fases maior que zero; False otherwise. */
-        bool setLives( int lives_ );
+		/** @brief Diminui uma vida do jogador.
+ 		    @return True se tinha vidas pra diminuir; False otherwise. */
+        bool setLives( );
 
 
 		/** @brief Recupera a quantidade de vidas do jogador.
             @return As vidas. */
-        int getLives( void ) const;  
+        int getLives( void ) const; 
+
+
+        /** @brief Atualiza status do jogador
+            @param state_ O status */
+        void setState( int state_ );
+
+
+		/** @brief Recupera o status do jogador
+            @return True se jogador ganhou; False se perdeu */
+        bool getState( void ) const;
  
 
 	private:
 		int levels; 					 			  //<! quantidade de fases do jogo
+		int currentLevel; 					 		  //<! fase atual do jogador
     	std::vector<std::vector<std::string>> boards; //<! tabuleiros a serem processados
         int lives;   								  //<! vidas da cobra
+        int state;									  //<! 0 se jogador perdeu or 1 se venceu
 
 };
 
