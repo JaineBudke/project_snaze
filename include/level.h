@@ -19,7 +19,7 @@ class Level {
 
 	private:
     	std::vector<std::string> currentBoard; //<! tabuleiro atualmente sendo processado
-    	int currentLevel; 					   //<! level atual do processo
+    	int level; 							   //<! level atual do processo
         Position startPosition; 			   //<! posicao inicial da cobra na fase atual
 
 };

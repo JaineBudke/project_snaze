@@ -74,7 +74,7 @@ bool Manager::gameOver(){
     int currentLevel_ = gm.getCurrentLevel();
     int levels_       = gm.getLevels();
     int life          = gm.getLives();
-
+    
     // - se jogador passou de todos os niveis
     if( currentLevel_ > levels_ ){
         gm.setState( 1 ); // venceu

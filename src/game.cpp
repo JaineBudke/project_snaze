@@ -1,4 +1,41 @@
 #include "game.h"
+#include "level.h"
+
+// ======================================================
+// ESTADOS 
+// ======================================================
+
+/** @brief Aumenta o tamanho da cobra (informacoes da classe Snake). */
+void expandSnake(){
+
+	// TODO
+
+}
+
+
+/** @brief Faz a chamada da próxima fase do jogo setando os valores da classe Level. */
+void levelUp(){
+
+	// TODO
+
+}
+
+
+/** @brief Verifica se a cobra teve alguma colisão. */
+bool crashSnake(){
+
+	// TODO
+	
+}
+
+
+/** @brief Simula a morte da cobra (diminui uma vida). */
+void deadSnake(){
+
+	// TODO
+	
+}
+
 
 // ======================================================
 // SETTERS AND GETTERS 

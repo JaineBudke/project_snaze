@@ -22,7 +22,7 @@ class Game {
 	public:
 
 		//** @brief Criando um Game vazio (inicializacao).
-	    Game() : lives(10) { /* empty */ }
+	    Game() : lives(10), currentLevel(0) { /* empty */ }
 
 
 		/**
@@ -154,6 +154,7 @@ class Game {
         int lives;   								  //<! vidas da cobra
         int state;									  //<! 0 se jogador perdeu or 1 se venceu
         std::vector<Position> sizesBoards; 			  //<! tamanhos dos tabuleiros
+
 };
 
 #endif
