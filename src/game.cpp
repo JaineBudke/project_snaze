@@ -97,3 +97,15 @@ bool Game::getState( void ) const{
 		return false;
 	}
 }
+
+/** @brief Atualiza os tamanhos dos tabuleiros do jogo
+    @param sizesBoards_ Vetor com os tamanhos */
+void Game::setSizeBoards( std::vector<Position> sizesBoards_ ){
+	sizesBoards = sizesBoards_;
+}
+
+
+/** @brief Recupera o vetor com os tamanhos */
+std::vector<Game::Position> Game::getSizeBoards( void ) const{
+	return sizesBoards;
+}

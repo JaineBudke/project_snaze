@@ -51,7 +51,7 @@ class Game {
 		// ======================================================
 		// ACTIONS 
 		// ======================================================
-		
+
 		/** @brief Lança uma maçã no jogo, dentro das coordenadas do tabuleiro da fase.
 	        @return Posicao em que a maçã foi lançada */
 		Position throwApple();
@@ -139,6 +139,13 @@ class Game {
             @return True se jogador ganhou; False se perdeu */
         bool getState( void ) const;
  
+ 		/** @brief Atualiza os tamanhos dos tabuleiros do jogo
+            @param sizesBoards_ Vetor com os tamanhos */
+        void setSizeBoards( std::vector<Position> sizesBoards_ );
+
+
+		/** @brief Recupera o vetor com os tamanhos */
+        std::vector<Position> getSizeBoards( void ) const;
 
 	private:
 		int levels; 					 			  //<! quantidade de fases do jogo
@@ -146,7 +153,7 @@ class Game {
     	std::vector<std::vector<std::string>> boards; //<! tabuleiros a serem processados
         int lives;   								  //<! vidas da cobra
         int state;									  //<! 0 se jogador perdeu or 1 se venceu
-
+        std::vector<Position> sizesBoards; 			  //<! tamanhos dos tabuleiros
 };
 
 #endif

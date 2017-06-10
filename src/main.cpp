@@ -15,7 +15,6 @@ int main( int argc, char * argv[] ){
 
 	// Initial message
     mg.welcome();
- 
 
 	// The game loop
 	while(not mg.gameOver()){

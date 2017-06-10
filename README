@@ -1,0 +1,3 @@
+g++ -std=c++11 src/manager.cpp src/main.cpp src/game.cpp -I include -o snake
+
+./snake data/tab1

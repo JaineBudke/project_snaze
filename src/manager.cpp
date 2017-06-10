@@ -16,6 +16,37 @@ Manager::SnakeError::error Manager::initialize( char * arq ){
     if (!arquivo.is_open()){
         return Manager::SnakeError::error::ARCHIVE_NOT_FIND;
     }
+    // le qntidade de fases do jogo
+    int levels_;
+    arquivo >> levels_;
+
+    std::vector<std::vector<std::string>> tabuleiro;
+
+    Game::Position tamanho;
+    std::string linhaBoard;
+    // enquanto tiver coisa no arquivo
+    for( int i=0; i<levels_; i++ ){
+
+        std::vector<Game::Position> tamTabuleiros;
+        std::vector<std::string> linhasTabuleiro;
+
+        arquivo >> tamanho.y; // le quantidade de linhas
+        arquivo >> tamanho.x; // le quantidade de colunas
+
+        tamTabuleiros.push_back( tamanho );
+
+        std::cout << "Linhas = " << tamanho.y << " e colunas = " << tamanho.x << "\n";
+
+        for( int j=0; j<=tamanho.y; j++ ){
+
+            getline( arquivo, linhaBoard );
+            std::cout << linhaBoard << "\n";
+            linhasTabuleiro.push_back(linhaBoard);
+        }
+
+        tabuleiro.push_back( linhasTabuleiro );
+
+    }
 
     // TODO
     // Ler informacoes do arquivo e inicializar o game
