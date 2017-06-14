@@ -17,10 +17,14 @@
  */
 class Level {
 
-	private:
+	public:
+
+		//** @brief Criando um Game vazio (inicializacao).
+	    Level() : level(0) { /* empty */ }
+
     	std::vector<std::string> currentBoard; //<! tabuleiro atualmente sendo processado
     	int level; 							   //<! level atual do processo
-        Position startPosition; 			   //<! posicao inicial da cobra na fase atual
+        Game::Position startPosition; 		   //<! posicao inicial da cobra na fase atual
 
 };
 

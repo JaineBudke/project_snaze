@@ -1,12 +1,14 @@
 #include "game.h"
 #include "level.h"
 
+Level lv;
+
 // ======================================================
 // ESTADOS 
 // ======================================================
 
 /** @brief Aumenta o tamanho da cobra (informacoes da classe Snake). */
-void expandSnake(){
+void Game::expandSnake(){
 
 	// TODO
 
@@ -14,15 +16,18 @@ void expandSnake(){
 
 
 /** @brief Faz a chamada da próxima fase do jogo setando os valores da classe Level. */
-void levelUp(){
+void Game::levelUp(){
 
-	// TODO
+	lv.level += 1; // em level é acrescentado um nível 
+	currentLevel += 1;
+	lv.currentBoard = boards[lv.level-1]; // recupera o tabuleiro do level
+
 
 }
 
 
 /** @brief Verifica se a cobra teve alguma colisão. */
-bool crashSnake(){
+bool Game::crashSnake(){
 
 	// TODO
 	
@@ -30,7 +35,7 @@ bool crashSnake(){
 
 
 /** @brief Simula a morte da cobra (diminui uma vida). */
-void deadSnake(){
+void Game::deadSnake(){
 
 	// TODO
 	

@@ -50,6 +50,8 @@ Manager::SnakeError::error Manager::initialize( char * arq ){
     gm.setSizeBoards( tamTabuleiros ); // set tamanho dos tabuleiros
     gm.setBoards( tabuleiro );         // set tabuleiros
 
+    gm.levelUp(); // inicia o jogo com o level1
+
 }
 
 
@@ -78,16 +80,16 @@ bool Manager::gameOver(){
     // - se jogador passou de todos os niveis
     if( currentLevel_ > levels_ ){
         gm.setState( 1 ); // venceu
-        return false;
+        return true;
     } 
     // - se numero de vidas for igual a 0
     else if ( life == 0 ){
         gm.setState( 0 ); // perdeu
-        return false;
+        return true;
     }
     // - Otherwise: jogo continua
     else {
-        return true;
+        return false;
     }
 
 }
@@ -96,7 +98,14 @@ bool Manager::gameOver(){
 void Manager::process_events(){
 
     // TODO
-    // - se passou pro proximo nivel apresenta novas informacoes
+    // - (SE) passou pro proximo nivel apresenta novas informacoes
+    // - FAZER CONDICAO DISSO AQ
+    std::cout << "    =========== LEVEL "<< gm.getCurrentLevel() <<" ===========\n";
+    std::cout << ">>> Voce possui " << gm.getLives() << " vidas e o tabuleiro desta fase está abaixo. Boa sorte!\n";
+    std::cout << ">>> Pressione alguma tecla quando estiver pronto para começar.";
+    std::string dummy;
+    std::getline( std::cin, dummy );
+
 
 }
 
