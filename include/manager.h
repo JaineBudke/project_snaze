@@ -44,35 +44,38 @@ class Manager {
 
 		};
 
+    /** @brief Analisa o tabuleiro e verifica se tem algum erro.
+         @return Se labirinto está correto ou aponta o erro identificado. */
+    SnakeError::error parsing(  );
 
-		/** @brief Inicializa lendo o arquivo de entrada fornecido pelo jogador.
-	        @param arq Nome do arquivo de entrada.
-	        @return Se arquivo foi lido corretamente ou aponta o erro identificado. */
-		SnakeError::error initialize( char * arq );
-
-
-		//** @brief Exibe as informações iniciais e condição geral do jogo.
-        void welcome();
-
-
-        /** @brief Verifica se o jogo ainda deve ou não continuar sendo executado.
-            @return True se o jogo acabou; 0 jogo continua. */
-        bool gameOver();
+    /** @brief Inicializa lendo o arquivo de entrada fornecido pelo jogador.
+         @param arq Nome do arquivo de entrada.
+         @return Se arquivo foi lido corretamente ou aponta o erro identificado. */
+    SnakeError::error initialize( char * arq );
 
 
-        //** @brief Faz a chamada da próxima rodada do jogo.
-        void process_events();
+    //** @brief Exibe as informações iniciais e condição geral do jogo.
+    void welcome();
 
 
-        //** @brief Atualiza o estado do jogo.
-        void update();
- 
- 		//** @brief Exibe os resultados da rodada para o jogador.
-        void render();
+    /** @brief Verifica se o jogo ainda deve ou não continuar sendo executado.
+        @return True se o jogo acabou; 0 jogo continua. */
+    bool gameOver();
 
 
-        //** @brief Exibe os resultados finais do jogo para o jogador.
-        void render_log();
+    //** @brief Faz a chamada da próxima rodada do jogo.
+    void process_events();
+
+
+    //** @brief Atualiza o estado do jogo.
+    void update();
+
+    	//** @brief Exibe os resultados da rodada para o jogador.
+    void render();
+
+
+    //** @brief Exibe os resultados finais do jogo para o jogador.
+    void render_log();
 
 };
 

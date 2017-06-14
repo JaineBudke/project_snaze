@@ -4,6 +4,16 @@
 Game gm;
 
 
+
+/** @brief Analisa o tabuleiro e verifica se tem algum erro.
+     @return Se labirinto está correto ou aponta o erro identificado. */
+Manager::SnakeError::error Manager::parsing(  ){
+
+
+
+}
+
+
 /** @brief Inicializa lendo o arquivo de entrada fornecido pelo jogador.
     @param arq Nome do arquivo de entrada.
     @return Se arquivo foi lido corretamente ou aponta o erro identificado. */
@@ -15,7 +25,7 @@ Manager::SnakeError::error Manager::initialize( char * arq ){
     arquivo.open( arq, std::ios::in );
     // verifica se houve algum erro ao abrir arquivo
     if (!arquivo.is_open()){
-        return Manager::SnakeError::error::ARCHIVE_NOT_FIND;
+        return SnakeError::error::ARCHIVE_NOT_FIND;
     }
     // le qntidade de fases do jogo
     int levels_;
@@ -37,7 +47,7 @@ Manager::SnakeError::error Manager::initialize( char * arq ){
 
         tamTabuleiros.push_back( tamanho );
 
-        for( int j=0; j<=tamanho.y; j++ ){
+        for( int j=0 ; j<=tamanho.y ; j++ ){
 
             getline( arquivo, linhaBoard );
             linhasTabuleiro.push_back(linhaBoard);
@@ -46,7 +56,7 @@ Manager::SnakeError::error Manager::initialize( char * arq ){
         tabuleiro.push_back( linhasTabuleiro ); // set tabuleiros
 
     }
-   
+
     gm.setLevels( levels_ );           // set levels
     gm.setSizeBoards( tamTabuleiros ); // set tamanho dos tabuleiros
     gm.setBoards( tabuleiro );         // set tabuleiros
@@ -76,16 +86,16 @@ void Manager::welcome(){
 /** @brief Verifica se o jogo ainda deve ou não continuar sendo executado.
     @return True se o jogo acabou; 0 jogo continua. */
 bool Manager::gameOver(){
-    
+
     int currentLevel_ = gm.getCurrentLevel();
     int levels_       = gm.getLevels();
     int life          = gm.getLives();
-    
+
     // - se jogador passou de todos os niveis
     if( currentLevel_ > levels_ ){
         gm.setState( 1 ); // venceu
         return true;
-    } 
+    }
     // - se numero de vidas for igual a 0
     else if ( life == 0 ){
         gm.setState( 0 ); // perdeu
@@ -141,12 +151,12 @@ void Manager::render_log(){
     // - se jogador venceu dá os parabens
     if( result == true ){
         std::cout << ">>> Parabéns! Você completou todos os níveis do jogo!\n";
-    } 
+    }
     // - se jogador perdeu propõe jogar novamente
     if( result == false ){
         std::cout << ">>> Que pena... Parece que suas vidas terminaram\n";
         std::cout << ">>> Que tal começar um novo jogo? Talvez você tenha mais sorte da próxima vez\n";
         std::cout << ">>> Boa sorte! ;)\n";
     }
-    
+
 }

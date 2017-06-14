@@ -23,12 +23,12 @@ class Game {
 	public:
 
 		//** @brief Criando um Game vazio (inicializacao).
-	    Game() : lives(5), currentLevel(0), sizeSnake(3) { /* empty */ }
+	    Game() : lives(5), currentLevel(0) { /* empty */ }
 
 
 		/**
 		 *  Esse eh o struct Position
-		 *  Esta estrutura é capaz de indicar a posicao (x,y) de um elemento. 
+		 *  Esta estrutura é capaz de indicar a posicao (x,y) de um elemento.
 		 */
 		typedef struct {
 			int x; //<! Indica a coordenada X (coluna)
@@ -38,7 +38,7 @@ class Game {
 
 		/**
 		 *  Esse eh o struct Direction
-		 *  Esta estrutura é capaz de indicar uma direcao (x,y) para um elemento seguir. 
+		 *  Esta estrutura é capaz de indicar uma direcao (x,y) para um elemento seguir.
 		 */
 		typedef struct {
 			int x; //<! Indica a coordenada X (coluna)
@@ -50,7 +50,7 @@ class Game {
 
 
 		// ======================================================
-		// ACTIONS 
+		// ACTIONS
 		// ======================================================
 
 		/** @brief Lança uma maçã no jogo, dentro das coordenadas do tabuleiro da fase.
@@ -70,7 +70,7 @@ class Game {
 
 
 		// ======================================================
-		// ESTADOS 
+		// ESTADOS
 		// ======================================================
 
 		/** @brief Aumenta o tamanho da cobra (informacoes da classe Snake). */
@@ -91,7 +91,7 @@ class Game {
 
 
 		// ======================================================
-		// SETTERS AND GETTERS 
+		// SETTERS AND GETTERS
 		// ======================================================
 
 		/** @brief Define a quantidade de fases do jogo.
@@ -119,16 +119,16 @@ class Game {
             @param boards_ Os tabuleiros
             @return True se tiver um numero de tabuleiros maior que zero; False otherwise. */
         bool setBoards( std::vector<std::vector<std::string>> boards_ );
-        
+
 
 		/** @brief Recupera os tabuleiros do jogo.
             @return Os tabuleiros. */
-        std::vector<std::vector<std::string>> getBoards( void ) const;     
-        
+        std::vector<std::vector<std::string>> getBoards( void ) const;
+
 
 		/** @brief Recupera o tabuleiro atual do jogo.
             @return O tabuleiro. */
-        std::vector<std::string> getCurrentBoard( void ) const;   
+        std::vector<std::string> getCurrentBoard( void ) const;
 
 
 		/** @brief Diminui uma vida do jogador.
@@ -138,7 +138,7 @@ class Game {
 
 		/** @brief Recupera a quantidade de vidas do jogador.
             @return As vidas. */
-        int getLives( void ) const; 
+        int getLives( void ) const;
 
 
         /** @brief Atualiza status do jogador
@@ -149,7 +149,7 @@ class Game {
 		/** @brief Recupera o status do jogador
             @return True se jogador ganhou; False se perdeu */
         bool getState( void ) const;
- 
+
  		/** @brief Atualiza os tamanhos dos tabuleiros do jogo
             @param sizesBoards_ Vetor com os tamanhos */
         void setSizeBoards( std::vector<Position> sizesBoards_ );
@@ -172,9 +172,6 @@ class Game {
 		int currentLevel; 					 		  //<! fase atual do jogador
     	std::vector<std::string> currentBoard; 		  //<! tabuleiro atualmente sendo processado
 
-
-        // ESSA INFORMACAO TEM Q IR PRA CLASSE SKANE DEPOIS...
-        int sizeSnake   							  //<! tamanho da cobra
 
 };
 

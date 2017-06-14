@@ -1,7 +1,7 @@
 /**
  * @file    game.h
  * @brief   Arquivo cabeçalho com a implementacao de funcoes que
-            controlam o jogo.
+                 controlam o jogo.
  * @author  Daniel Barbosa (nome@email.com)
  * @author  Jaine Budke (jainebudke@hotmail.com)
  * @since   30/05/2017
@@ -13,7 +13,7 @@
 
 
 // ======================================================
-// ACTIONS 
+// ACTIONS
 // ======================================================
 
 
@@ -26,12 +26,12 @@ Game::Position Game::initialPosition(){
         for( int j=0 ; j < currentBoard[i].length() ; j++ ){ // Percorre cada pos da string
             if( currentBoard[i][j] == '*' ){
                 Position inicial;
-				inicial.x = j; // coluna
-				inicial.y = i; // linha
-				return inicial;
-            } 
+                inicial.x = j; // coluna
+	   inicial.y = i; // linha
+	   return inicial;
+            }
         }
-	}
+    }
 
 }
 
@@ -53,7 +53,7 @@ Game::Direction Game::moveSnake(){
 
 
 // ======================================================
-// ESTADOS 
+// ESTADOS
 // ======================================================
 
 /** @brief Aumenta o tamanho da cobra. */
@@ -67,8 +67,8 @@ void Game::expandSnake(){
 /** @brief Faz a chamada da próxima fase do jogo setando os valores da classe Level. */
 void Game::levelUp(){
 
-	currentLevel += 1; // em level é acrescentado um nível 
-	currentBoard = boards[currentLevel-1]; // recupera o tabuleiro do level
+    currentLevel += 1; // em level é acrescentado um nível
+    currentBoard = boards[currentLevel-1]; // recupera o tabuleiro do level
 
 }
 
@@ -77,7 +77,7 @@ void Game::levelUp(){
 bool Game::crashSnake(){
 
 	// TODO
-	
+
 }
 
 
@@ -85,12 +85,12 @@ bool Game::crashSnake(){
 void Game::deadSnake(){
 
 	// TODO
-	
+
 }
 
 
 // ======================================================
-// SETTERS AND GETTERS 
+// SETTERS AND GETTERS
 // ======================================================
 
 /** @brief Define a quantidade de fases do jogo.
