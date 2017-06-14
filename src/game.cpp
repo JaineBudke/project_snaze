@@ -1,7 +1,30 @@
 #include "game.h"
-#include "level.h"
 
-Level lv;
+
+// ======================================================
+// ACTIONS 
+// ======================================================
+
+
+/** @brief Identifica a posicao inicial da Snake no tabuleiro.
+    @return Posicao inicial da Snake */
+Game::Position Game::initialPosition(){
+
+    // Percorre board tentando encontrar inicio
+    for( int i = 0 ; i < currentBoard.size() ; i++ ){        // Percorre cada pos do vector
+        for( int j=0 ; j < currentBoard[i].length() ; j++ ){ // Percorre cada pos da string
+            if( currentBoard[i][j] == '*' ){
+                Position inicial;
+				inicial.x = j; // coluna
+				inicial.y = i; // linha
+				return inicial;
+            } 
+        }
+	}
+
+}
+
+
 
 // ======================================================
 // ESTADOS 
@@ -18,10 +41,8 @@ void Game::expandSnake(){
 /** @brief Faz a chamada da próxima fase do jogo setando os valores da classe Level. */
 void Game::levelUp(){
 
-	lv.level += 1; // em level é acrescentado um nível 
-	currentLevel += 1;
-	lv.currentBoard = boards[lv.level-1]; // recupera o tabuleiro do level
-
+	currentLevel += 1; // em level é acrescentado um nível 
+	currentBoard = boards[currentLevel-1]; // recupera o tabuleiro do level
 
 }
 
@@ -103,7 +124,14 @@ bool Game::setBoards( std::vector<std::vector<std::string>> boards_ ){
     @return Os tabuleiros. */
 std::vector<std::vector<std::string>> Game::getBoards( void ) const{
 	return boards;
-}  
+}
+
+
+/** @brief Recupera o tabuleiro atual do jogo.
+    @return O tabuleiro. */
+std::vector<std::string> Game::getCurrentBoard( void ) const{
+	return currentBoard;
+}
 
 
 /** @brief Diminui uma vida do jogador.
@@ -151,3 +179,4 @@ void Game::setSizeBoards( std::vector<Position> sizesBoards_ ){
 std::vector<Game::Position> Game::getSizeBoards( void ) const{
 	return sizesBoards;
 }
+

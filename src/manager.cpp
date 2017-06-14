@@ -3,6 +3,7 @@
 
 Game gm;
 
+
 /** @brief Inicializa lendo o arquivo de entrada fornecido pelo jogador.
     @param arq Nome do arquivo de entrada.
     @return Se arquivo foi lido corretamente ou aponta o erro identificado. */
@@ -52,6 +53,8 @@ Manager::SnakeError::error Manager::initialize( char * arq ){
 
     gm.levelUp(); // inicia o jogo com o level1
 
+    gm.initialPosition();
+
 }
 
 
@@ -59,10 +62,11 @@ Manager::SnakeError::error Manager::initialize( char * arq ){
 void Manager::welcome(){
 
     int n_levels = gm.getLevels();
+    int n_lives  = gm.getLives();
 
     std::cout << ">>> Bem-vindo ao Snake!\n";
     std::cout << ">>> Esta é uma simulação com os dados de entrada fornecidos.\n";
-    std::cout << ">>> O jogo possui " << n_levels << " fases e você tem 10 vidas! Boa sorte!\n";
+    std::cout << ">>> O jogo possui " << n_levels << " fases e você tem " << n_lives << " vidas! Boa sorte!\n";
     std::cout << ">>> Pressione alguma tecla quando estiver pronto para começar.";
     std::string dummy;
     std::getline( std::cin, dummy );
@@ -97,15 +101,18 @@ bool Manager::gameOver(){
 //** @brief Faz a chamada da próxima rodada do jogo.
 void Manager::process_events(){
 
-    // TODO
-    // - (SE) passou pro proximo nivel apresenta novas informacoes
-    // - FAZER CONDICAO DISSO AQ
+	std::vector<std::string> currentBoard_ = gm.getCurrentBoard();
+	Game::Position initial = gm.initialPosition();
+
+	std::cout << "Inicial: " << initial.y << " e " << initial.x << "\n";
+
     std::cout << "    =========== LEVEL "<< gm.getCurrentLevel() <<" ===========\n";
     std::cout << ">>> Voce possui " << gm.getLives() << " vidas e o tabuleiro desta fase está abaixo. Boa sorte!\n";
-    std::cout << ">>> Pressione alguma tecla quando estiver pronto para começar.";
-    std::string dummy;
-    std::getline( std::cin, dummy );
 
+    for( int i=0; i < currentBoard_.size() ; i++ ){
+    	std::cout << currentBoard_[i] << "\n";
+    }
+    std::cout << "\n";
 
 }
 

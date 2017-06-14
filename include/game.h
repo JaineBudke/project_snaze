@@ -10,6 +10,7 @@
 #ifndef _GAME_H_
 #define _GAME_H_
 
+#include <iostream>
 #include <vector>
 #include <string>
 
@@ -22,7 +23,7 @@ class Game {
 	public:
 
 		//** @brief Criando um Game vazio (inicializacao).
-	    Game() : lives(10), currentLevel(0) { /* empty */ }
+	    Game() : lives(5), currentLevel(0) { /* empty */ }
 
 
 		/**
@@ -62,6 +63,11 @@ class Game {
 		Direction moveSnake();
 
 
+		/** @brief Identifica a posicao inicial da Snake no tabuleiro.
+	        @return Posicao inicial da Snake */
+		Position initialPosition();
+
+
 
 		// ======================================================
 		// ESTADOS 
@@ -71,7 +77,7 @@ class Game {
 		void expandSnake();
 
 
-		/** @brief Faz a chamada da próxima fase do jogo setando os valores da classe Level. */
+		/** @brief Faz a chamada da próxima fase do jogo. */
 		void levelUp();
 
 
@@ -118,6 +124,11 @@ class Game {
 		/** @brief Recupera os tabuleiros do jogo.
             @return Os tabuleiros. */
         std::vector<std::vector<std::string>> getBoards( void ) const;     
+        
+
+		/** @brief Recupera o tabuleiro atual do jogo.
+            @return O tabuleiro. */
+        std::vector<std::string> getCurrentBoard( void ) const;   
 
 
 		/** @brief Diminui uma vida do jogador.
@@ -150,7 +161,10 @@ class Game {
 	private:
 		int levels; 					 			  //<! quantidade de fases do jogo
 		int currentLevel; 					 		  //<! fase atual do jogador
+
     	std::vector<std::vector<std::string>> boards; //<! tabuleiros a serem processados
+    	std::vector<std::string> currentBoard; 		  //<! tabuleiro atualmente sendo processado
+
         int lives;   								  //<! vidas da cobra
         int state;									  //<! 0 se jogador perdeu or 1 se venceu
         std::vector<Position> sizesBoards; 			  //<! tamanhos dos tabuleiros
