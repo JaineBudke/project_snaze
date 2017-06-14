@@ -17,7 +17,7 @@
 // ======================================================
 
 /** @brief Identifica a posicao inicial da Snake no tabuleiro.
-    @return Posicao inicial da Snake */
+     @return Posicao inicial da Snake */
 Game::Position Game::initialPosition(){
 
     // Percorre board tentando encontrar inicio
@@ -35,15 +35,34 @@ Game::Position Game::initialPosition(){
 }
 
 /** @brief Lança uma maçã no jogo, dentro das coordenadas do tabuleiro da fase.
-    @return Posicao em que a maçã foi lançada */
+     @return Posicao em que a maçã foi lançada */
 Game::Position Game::throwApple(){
 
-	// TODO
+    /*
+    bool valido = false;
+
+    std::srand(std::time(0)); // semente do rand
+    Position tamanho = sizesBoards[currentLevel-1]; // pega tamanho do level atual
+
+    do{
+
+        int menor = 0;
+        int maiorLinha   = tamanho.y;
+        int maiorColuna = tamanho.x;
+
+        int appleLinha   = rand()%(maiorLinha-menor+1) + menor;    // sorteia um numero aleatorio para a linha
+        int appleColuna = rand()%(maiorColuna-menor+1) + menor; // sorteia um numero aleatorio para a coluna
+
+        valido = true;
+
+    } while( valido );
+
+    */
 
 }
 
 /** @brief Move a cobra de acordo com as coordenadas passadas.
-    @return Direcao que deve se mover */
+     @return Direcao que deve se mover */
 Game::Direction Game::moveSnake(){
 
 	// TODO
@@ -57,7 +76,7 @@ Game::Direction Game::moveSnake(){
 /** @brief Verifica se o caractere passado é uma parede.
     @return 1 se for, 0 se não for */
 bool Game::isWall( char ch ){
-    return ( ch == '#');
+    return ( ch == '#' );
 }
 
 /** @brief Verifica se o caractere passado é uma parede invisivel.

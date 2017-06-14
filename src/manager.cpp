@@ -180,6 +180,7 @@ void Manager::process_events(){
 void Manager::update(){
 
     // TODO
+    gm.throwApple();
     gm.levelUp();
 
 
