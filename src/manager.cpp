@@ -15,7 +15,7 @@ Manager::SnakeError Manager::parsing(  ){
     //////////// QUE CODIGO HORRIVEEEEEEEL, AJEITA ISSO PLMDDSSSSSS
 
 
-    // VERIFICAR SE TABULEIROS POSSUEM POSICAO INICIAL
+    // Percorre todos os labirintos procurando por erros
     for( int i = 0 ; i < boards_.size() ;  i++ ){ // percorre cada um dos tabuleiros
 
         int inicial = 0;
@@ -26,17 +26,19 @@ Manager::SnakeError Manager::parsing(  ){
 
                 char carac = boards_[i][j][k];
 
-                /* ISSO TÁ DANDO ERRADO
+                // Verifica se há algum simbolo estranho
                 if( !(gm.isWall( carac )) and !(gm.isInvisibleWall( carac )) and !(gm.isFree( carac )) and !(gm.isInitialPosition( carac )) ){
-                    std::cout << "TESTE: '" << carac << "'\n";
                     return EXTRANEOUS_SYMBOL;
-                } */
+                }
 
+                // Verifica se é uma posicao inicial
                 if( gm.isInitialPosition( carac ) ){
                     inicial += 1;
                 }
 
         } }
+
+        // verifica quantas posicoes iniciais foram identificadas
         if( inicial != 1 ){ // se tiver mais de 1 posicao ou nenhuma
             return MISSING_START;
         }
@@ -115,6 +117,14 @@ void Manager::welcome(){
     int n_levels = gm.getLevels();
     int n_lives  = gm.getLives();
 
+    std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
+    std::cout << ":::          ////////    ////////    ///    ////////////    ///////////     //////////         :::\n";
+    std::cout << ":::         ///          ///   ///   ///    ///      ///            ///     ////               :::\n";
+    std::cout << ":::         ///////      ///    ///  ///    ////////////         ///        //////////         :::\n";
+    std::cout << ":::              ///     ///     /// ///    ///      ///      ///           ////               :::\n";
+    std::cout << ":::        ////////      ///      //////    ///      ///    ///////////     //////////         :::\n";
+    std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
+
     std::cout << ">>> Bem-vindo ao Snake!\n";
     std::cout << ">>> Esta é uma simulação com os dados de entrada fornecidos.\n";
     std::cout << ">>> O jogo possui " << n_levels << " fases e você tem " << n_lives << " vidas! Boa sorte!\n";
@@ -156,7 +166,7 @@ void Manager::process_events(){
     Game::Position initial = gm.initialPosition();
 
 
-    std::cout << "    =========== LEVEL "<< gm.getCurrentLevel() <<" ===========\n";
+    std::cout << "============== LEVEL "<< gm.getCurrentLevel() <<" ==============\n";
     std::cout << ">>> Voce possui " << gm.getLives() << " vidas e o tabuleiro desta fase está abaixo. Boa sorte!\n";
 
     for( int i=0; i < currentBoard_.size() ; i++ ){

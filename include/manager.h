@@ -34,7 +34,7 @@ class Manager {
         };
 
 
-    /** @brief Analisa o tabuleiro e verifica se tem algum erro.
+    /** @brief Analisa os tabuleiros e verifica se tem algum erro.
          @return Se labirinto está correto ou aponta o erro identificado. */
     SnakeError parsing(  );
 

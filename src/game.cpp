@@ -76,7 +76,7 @@ bool Game::isFree( char ch ){
 /** @brief Verifica se o caractere passado é a posicao inicial.
      @return 1 se for, 0 se não for */
 bool Game::isInitialPosition( char ch ){
-    return ( ch == '*');
+    return ( ch == '*' );
 }
 
 
@@ -96,7 +96,10 @@ void Game::expandSnake(){
 void Game::levelUp(){
 
     currentLevel += 1; // em level é acrescentado um nível
-    currentBoard = boards[currentLevel-1]; // recupera o tabuleiro do level
+
+    if( currentLevel <= levels ){
+        currentBoard = boards[currentLevel-1]; // recupera o tabuleiro do level
+    }
 
 }
 
