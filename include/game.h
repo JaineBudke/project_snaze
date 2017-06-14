@@ -23,7 +23,7 @@ class Game {
 	public:
 
 		//** @brief Criando um Game vazio (inicializacao).
-	    Game() : lives(5), currentLevel(0) { /* empty */ }
+	    Game() : lives(5), currentLevel(0), sizeSnake(3) { /* empty */ }
 
 
 		/**
@@ -160,14 +160,21 @@ class Game {
 
 	private:
 		int levels; 					 			  //<! quantidade de fases do jogo
-		int currentLevel; 					 		  //<! fase atual do jogador
-
     	std::vector<std::vector<std::string>> boards; //<! tabuleiros a serem processados
-    	std::vector<std::string> currentBoard; 		  //<! tabuleiro atualmente sendo processado
-
         int lives;   								  //<! vidas da cobra
         int state;									  //<! 0 se jogador perdeu or 1 se venceu
         std::vector<Position> sizesBoards; 			  //<! tamanhos dos tabuleiros
+
+
+
+
+        // ESSES DADOS TEM Q IR PRA CLASSE LEVEL DEPOIS...
+		int currentLevel; 					 		  //<! fase atual do jogador
+    	std::vector<std::string> currentBoard; 		  //<! tabuleiro atualmente sendo processado
+
+
+        // ESSA INFORMACAO TEM Q IR PRA CLASSE SKANE DEPOIS...
+        int sizeSnake   							  //<! tamanho da cobra
 
 };
 

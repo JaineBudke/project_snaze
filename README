@@ -1,3 +1,10 @@
 g++ -std=c++11 src/manager.cpp src/main.cpp src/game.cpp -I include -o snake
 
 ./snake data/tab1
+
+
+Erros:
+- Não tá lendo o arquivo direito;
+- Não tá tratando os erros de leitura de arquivo;
+- As classes não estão divididas corretamente;
+

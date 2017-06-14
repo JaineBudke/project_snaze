@@ -148,5 +148,5 @@ void Manager::render_log(){
         std::cout << ">>> Que tal começar um novo jogo? Talvez você tenha mais sorte da próxima vez\n";
         std::cout << ">>> Boa sorte! ;)\n";
     }
-
+    
 }

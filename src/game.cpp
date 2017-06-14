@@ -1,3 +1,14 @@
+/**
+ * @file    game.h
+ * @brief   Arquivo cabeçalho com a implementacao de funcoes que
+            controlam o jogo.
+ * @author  Daniel Barbosa (nome@email.com)
+ * @author  Jaine Budke (jainebudke@hotmail.com)
+ * @since   30/05/2017
+ * @date    19/06/2017
+ */
+
+
 #include "game.h"
 
 
@@ -24,13 +35,28 @@ Game::Position Game::initialPosition(){
 
 }
 
+/** @brief Lança uma maçã no jogo, dentro das coordenadas do tabuleiro da fase.
+    @return Posicao em que a maçã foi lançada */
+Game::Position Game::throwApple(){
+
+	// TODO
+
+}
+
+/** @brief Move a cobra de acordo com as coordenadas passadas.
+    @return Direcao que deve se mover */
+Game::Direction Game::moveSnake(){
+
+	// TODO
+
+}
 
 
 // ======================================================
 // ESTADOS 
 // ======================================================
 
-/** @brief Aumenta o tamanho da cobra (informacoes da classe Snake). */
+/** @brief Aumenta o tamanho da cobra. */
 void Game::expandSnake(){
 
 	// TODO
