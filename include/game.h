@@ -68,6 +68,28 @@ class Game {
 		Position initialPosition();
 
 
+            // ======================================================
+            // AUXILIO
+            // ======================================================
+
+            /** @brief Verifica se o caractere passado é uma parede.
+                 @return 1 se for, 0 se não for */
+            bool isWall( char ch );
+
+            /** @brief Verifica se o caractere passado é uma parede invisivel.
+                 @return 1 se for, 0 se não for */
+            bool isInvisibleWall( char ch );
+
+
+            /** @brief Verifica se o caractere passado é um lugar livre.
+                 @return 1 se for, 0 se não for */
+            bool isFree( char ch );
+
+            /** @brief Verifica se o caractere passado é a posicao inicial.
+                 @return 1 se for, 0 se não for */
+            bool isInitialPosition( char ch );
+
+
 
 		// ======================================================
 		// ESTADOS

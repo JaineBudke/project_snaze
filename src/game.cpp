@@ -16,7 +16,6 @@
 // ACTIONS
 // ======================================================
 
-
 /** @brief Identifica a posicao inicial da Snake no tabuleiro.
     @return Posicao inicial da Snake */
 Game::Position Game::initialPosition(){
@@ -49,6 +48,35 @@ Game::Direction Game::moveSnake(){
 
 	// TODO
 
+}
+
+// ======================================================
+// AUXILIO
+// ======================================================
+
+/** @brief Verifica se o caractere passado é uma parede.
+    @return 1 se for, 0 se não for */
+bool Game::isWall( char ch ){
+    return ( ch == '#');
+}
+
+/** @brief Verifica se o caractere passado é uma parede invisivel.
+     @return 1 se for, 0 se não for */
+bool Game::isInvisibleWall( char ch ){
+    return ( ch == '.' );
+}
+
+
+/** @brief Verifica se o caractere passado é um lugar livre.
+     @return 1 se for, 0 se não for */
+bool Game::isFree( char ch ){
+    return ( ch == ' ' );
+}
+
+/** @brief Verifica se o caractere passado é a posicao inicial.
+     @return 1 se for, 0 se não for */
+bool Game::isInitialPosition( char ch ){
+    return ( ch == '*');
 }
 
 

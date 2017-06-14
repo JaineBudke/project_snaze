@@ -7,17 +7,50 @@ Game gm;
 
 /** @brief Analisa o tabuleiro e verifica se tem algum erro.
      @return Se labirinto está correto ou aponta o erro identificado. */
-Manager::SnakeError::error Manager::parsing(  ){
+Manager::SnakeError Manager::parsing(  ){
+
+    std::vector<std::vector<std::string>> boards_ = gm.getBoards(); // pega os tabuleiros do jogo
 
 
+    //////////// QUE CODIGO HORRIVEEEEEEEL, AJEITA ISSO PLMDDSSSSSS
+
+
+    // VERIFICAR SE TABULEIROS POSSUEM POSICAO INICIAL
+    for( int i = 0 ; i < boards_.size() ;  i++ ){ // percorre cada um dos tabuleiros
+
+        int inicial = 0;
+
+        for( int j = 0 ; j < boards_[i].size() ; j++ ){ // percorre as linhas de um tabuleiro especifico
+
+            for( int k = 0 ; k < boards_[i][j].size() ; k++ ){ // percorre as colunas de um tabuleiro especifico
+
+                char carac = boards_[i][j][k];
+
+                /* ISSO TÁ DANDO ERRADO
+                if( !(gm.isWall( carac )) and !(gm.isInvisibleWall( carac )) and !(gm.isFree( carac )) and !(gm.isInitialPosition( carac )) ){
+                    std::cout << "TESTE: '" << carac << "'\n";
+                    return EXTRANEOUS_SYMBOL;
+                } */
+
+                if( gm.isInitialPosition( carac ) ){
+                    inicial += 1;
+                }
+
+        } }
+        if( inicial != 1 ){ // se tiver mais de 1 posicao ou nenhuma
+            return MISSING_START;
+        }
+    }
+
+    return BOARD_OK;
 
 }
 
 
 /** @brief Inicializa lendo o arquivo de entrada fornecido pelo jogador.
-    @param arq Nome do arquivo de entrada.
-    @return Se arquivo foi lido corretamente ou aponta o erro identificado. */
-Manager::SnakeError::error Manager::initialize( char * arq ){
+     @param arq Nome do arquivo de entrada.
+     @return Se arquivo foi lido corretamente ou aponta o erro identificado. */
+Manager::SnakeError Manager::initialize( char * arq ){
 
     // cria input file stream (ifstream)
     std::ifstream arquivo;
@@ -25,20 +58,21 @@ Manager::SnakeError::error Manager::initialize( char * arq ){
     arquivo.open( arq, std::ios::in );
     // verifica se houve algum erro ao abrir arquivo
     if (!arquivo.is_open()){
-        return SnakeError::error::ARCHIVE_NOT_FIND;
+        return SnakeError::ARCHIVE_NOT_FIND;
     }
-    // le qntidade de fases do jogo
-    int levels_;
-    arquivo >> levels_;
+
 
     std::vector<std::vector<std::string>> tabuleiro;
     std::vector<Game::Position> tamTabuleiros;
+    int levels_ = 0;
+
 
     Game::Position tamanho;
     std::string linhaBoard;
+    std::string dummy;
 
     // enquanto tiver coisa no arquivo
-    for( int i=0; i<levels_; i++ ){
+    do {
 
         std::vector<std::string> linhasTabuleiro;
 
@@ -47,15 +81,20 @@ Manager::SnakeError::error Manager::initialize( char * arq ){
 
         tamTabuleiros.push_back( tamanho );
 
-        for( int j=0 ; j<=tamanho.y ; j++ ){
+        getline( arquivo, dummy ); // eliminando linha
+        for( int j=0 ; j<tamanho.y ; j++ ){
 
             getline( arquivo, linhaBoard );
             linhasTabuleiro.push_back(linhaBoard);
+
         }
 
         tabuleiro.push_back( linhasTabuleiro ); // set tabuleiros
 
-    }
+        levels_ += 1;
+        getline( arquivo, dummy ); // eliminando linha
+
+    } while( arquivo.good() );
 
     gm.setLevels( levels_ );           // set levels
     gm.setSizeBoards( tamTabuleiros ); // set tamanho dos tabuleiros
@@ -63,7 +102,9 @@ Manager::SnakeError::error Manager::initialize( char * arq ){
 
     gm.levelUp(); // inicia o jogo com o level1
 
-    gm.initialPosition();
+    auto result = parsing();
+
+    return result;
 
 }
 
@@ -111,10 +152,9 @@ bool Manager::gameOver(){
 //** @brief Faz a chamada da próxima rodada do jogo.
 void Manager::process_events(){
 
-	std::vector<std::string> currentBoard_ = gm.getCurrentBoard();
-	Game::Position initial = gm.initialPosition();
+    std::vector<std::string> currentBoard_ = gm.getCurrentBoard();
+    Game::Position initial = gm.initialPosition();
 
-	std::cout << "Inicial: " << initial.y << " e " << initial.x << "\n";
 
     std::cout << "    =========== LEVEL "<< gm.getCurrentLevel() <<" ===========\n";
     std::cout << ">>> Voce possui " << gm.getLives() << " vidas e o tabuleiro desta fase está abaixo. Boa sorte!\n";
@@ -130,6 +170,8 @@ void Manager::process_events(){
 void Manager::update(){
 
     // TODO
+    gm.levelUp();
+
 
 }
 

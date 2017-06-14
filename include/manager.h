@@ -21,37 +21,27 @@
  */
 class Manager {
 
-	public:
 
-		/// Essa estrutura representa o resultado da operação de carregamento do arquivo.
-		struct SnakeError{
 
-			// Lista de possíveis erros de leitura do arquivo.
-			enum error {
-		        BOARD_OK = 0,      // Arquivo lido corretamente
-		        MISSING_START,	   // Não há posição inicial
-		        EXTRANEOUS_SYMBOL, // Encontrado símbolo diferente de '#', ' ', '*', '.'
-		        ARCHIVE_NOT_FIND   // Arquivo nao encontrado
-			};
 
-			//=== Members (public).
-			error type; //<! Type error.
+    public:
 
-			// Por padrão, o resultado é positivo.
-            explicit SnakeError( error type_= BOARD_OK )
-                    : type{ type_ }
-			{ /* empty */ }
+        enum SnakeError {
+	BOARD_OK = 0,              // Arquivo lido corretamente
+	MISSING_START,	 // Não há posição inicial
+	EXTRANEOUS_SYMBOL, // Encontrado símbolo diferente de '#', ' ', '*', '.'
+	ARCHIVE_NOT_FIND       // Arquivo nao encontrado
+        };
 
-		};
 
     /** @brief Analisa o tabuleiro e verifica se tem algum erro.
          @return Se labirinto está correto ou aponta o erro identificado. */
-    SnakeError::error parsing(  );
+    SnakeError parsing(  );
 
     /** @brief Inicializa lendo o arquivo de entrada fornecido pelo jogador.
          @param arq Nome do arquivo de entrada.
          @return Se arquivo foi lido corretamente ou aponta o erro identificado. */
-    SnakeError::error initialize( char * arq );
+    SnakeError initialize( char * arq );
 
 
     //** @brief Exibe as informações iniciais e condição geral do jogo.
