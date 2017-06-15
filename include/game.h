@@ -14,6 +14,8 @@
 #include <vector>
 #include <string>
 
+#include "level.h"
+
 /**
  *  Essa eh a classe Game
  *  Aqui sao definidas as funcoes responsáveis pela execução do jogo (game loop)
@@ -23,7 +25,7 @@ class Game {
     public:
 
         //** @brief Criando um Game vazio (inicializacao).
-        Game() : lives(5), currentLevel(0) { /* empty */ }
+        Game() : lives(5) { /* empty */ }
 
 
         /**
@@ -54,22 +56,22 @@ class Game {
         // ======================================================
 
         /** @brief Lança uma maçã no jogo, dentro das coordenadas do tabuleiro da fase.
-             @return Posicao em que a maçã foi lançada */
+            @return Posicao em que a maçã foi lançada */
         Position throwApple();
 
 
         /** @brief Move a cobra de acordo com as coordenadas passadas buscadas na classe Snake.
-             @return Direcao que deve se mover */
+            @return Direcao que deve se mover */
         Direction moveSnake();
 
 
         /** @brief Identifica a posicao inicial da Snake no tabuleiro.
-             @return Posicao inicial da Snake */
+            @return Posicao inicial da Snake */
         Position initialPosition();
 
 
         // ======================================================
-        // AUXILIO
+        // AUXILIARES
         // ======================================================
 
         /** @brief Verifica se o caractere passado é uma parede.
@@ -126,16 +128,6 @@ class Game {
              @return As fases. */
         int getLevels( void ) const;
 
-        /** @brief Define a fase atual que o jogador se encontra.
-             @param level_ A fase
-             @return True se tiver um numero de fases maior que zero; False otherwise. */
-        bool setCurrentLevel( int level_ );
-
-
-        /** @brief Recupera a fase atual do jogo.
-             @return A fase. */
-        int getCurrentLevel( void ) const;
-
 
         /** @brief Define um vetor com os tabuleiros do jogo.
              @param boards_ Os tabuleiros
@@ -148,13 +140,8 @@ class Game {
         std::vector<std::vector<std::string>> getBoards( void ) const;
 
 
-        /** @brief Recupera o tabuleiro atual do jogo.
-             @return O tabuleiro. */
-        std::vector<std::string> getCurrentBoard( void ) const;
-
-
         /** @brief Diminui uma vida do jogador.
- 	 @return True se tinha vidas pra diminuir; False otherwise. */
+ 	        @return True se tinha vidas pra diminuir; False otherwise. */
         bool setLives( );
 
 
@@ -181,20 +168,36 @@ class Game {
         /** @brief Recupera o vetor com os tamanhos */
         std::vector<Position> getSizeBoards( void ) const;
 
+
+        // ======================================================
+        // GETTERS AND SETTERS DA CLASSE LEVEL
+        // ======================================================
+
+        /** @brief Define a fase atual que o jogador se encontra.
+            @param level_ A fase
+            @return True se tiver um numero de fases maior que zero; False otherwise. */
+        bool setCurrentLevel( int level_ );
+
+
+        /** @brief Recupera a fase atual do jogo.
+            @return A fase. */
+        int getCurrentLevel( void ) const;
+
+        /** @brief Define o tabuleiro atual do jogo.
+            @param level_ O tabuleiro
+            @return True se tiver um tabuleiro; False otherwise. */
+        bool setCurrentBoard( std::vector<std::string> tabuleiro );
+
+        /** @brief Recupera o tabuleiro atual do jogo.
+            @return O tabuleiro. */
+        std::vector<std::string> getCurrentBoard( void ) const;
+
     private:
-        int levels; 					         //<! quantidade de fases do jogo
+        int levels; 					                 //<! quantidade de fases do jogo
         std::vector<std::vector<std::string>> boards;    //<! tabuleiros a serem processados
-        int lives;   			                                  //<! vidas da cobra
-        int state;					        //<! 0 se jogador perdeu or 1 se venceu
-        std::vector<Position> sizesBoards; 	        //<! tamanhos dos tabuleiros
-
-
-
-
-        // ESSES DADOS TEM Q IR PRA CLASSE LEVEL DEPOIS...
-        int currentLevel; 					  //<! fase atual do jogador
-        std::vector<std::string> currentBoard; 		  //<! tabuleiro atualmente sendo processado
-
+        int lives;   			                         //<! vidas da cobra
+        int state;					                     //<! 0 se jogador perdeu or 1 se venceu
+        std::vector<Position> sizesBoards; 	             //<! tamanhos dos tabuleiros
 
 };
 

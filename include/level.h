@@ -10,6 +10,7 @@
 #ifndef _LEVEL_H_
 #define _LEVEL_H_
 
+
 /**
  *  Essa eh a classe Level
  *  Aqui sao definidas as funcoes e variaveis responsáveis pelas
@@ -20,11 +21,11 @@ class Level {
 	public:
 
 		//** @brief Criando um Game vazio (inicializacao).
-	    Level() : level(0) { /* empty */ }
+	    Level() : currentLevel(0) { /* empty */ }
 
     	std::vector<std::string> currentBoard; //<! tabuleiro atualmente sendo processado
-    	int level; 							   //<! level atual do processo
-        Game::Position startPosition; 		   //<! posicao inicial da cobra na fase atual
+    	int currentLevel;					   //<! level atual do processo
+        //Game::Position startPosition; 		   //<! posicao inicial da cobra na fase atual
 
 };
 

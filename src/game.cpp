@@ -12,6 +12,9 @@
 #include "game.h"
 
 
+Level lv; // instanciando classe level
+
+
 // ======================================================
 // ACTIONS
 // ======================================================
@@ -21,13 +24,13 @@
 Game::Position Game::initialPosition(){
 
     // Percorre board tentando encontrar inicio
-    for( int i = 0 ; i < currentBoard.size() ; i++ ){        // Percorre cada pos do vector
-        for( int j=0 ; j < currentBoard[i].length() ; j++ ){ // Percorre cada pos da string
-            if( currentBoard[i][j] == '*' ){
+    for( int i = 0 ; i < lv.currentBoard.size() ; i++ ){        // Percorre cada pos do vector
+        for( int j=0 ; j < lv.currentBoard[i].length() ; j++ ){ // Percorre cada pos da string
+            if( lv.currentBoard[i][j] == '*' ){
                 Position inicial;
                 inicial.x = j; // coluna
-	   inicial.y = i; // linha
-	   return inicial;
+            	inicial.y = i; // linha
+            	return inicial;
             }
         }
     }
@@ -114,10 +117,10 @@ void Game::expandSnake(){
 /** @brief Faz a chamada da próxima fase do jogo setando os valores da classe Level. */
 void Game::levelUp(){
 
-    currentLevel += 1; // em level é acrescentado um nível
+    lv.currentLevel += 1; // em level é acrescentado um nível
 
-    if( currentLevel <= levels ){
-        currentBoard = boards[currentLevel-1]; // recupera o tabuleiro do level
+    if( lv.currentLevel <= levels ){
+        lv.currentBoard = boards[lv.currentLevel-1]; // recupera o tabuleiro do level
     }
 
 }
@@ -162,25 +165,6 @@ int Game::getLevels( void ) const{
 	return levels;
 }
 
-/** @brief Define a fase atual que o jogador se encontra.
-    @param level_ A fase
-    @return True se tiver um numero de fases maior que zero; False otherwise. */
-bool Game::setCurrentLevel( int level_ ){
-	if( level_ > 0 ){
-		currentLevel = level_;
-		return true;
-	} else {
-		return false;
-	}
-}
-
-
-/** @brief Recupera a fase atual do jogo.
-    @return A fase. */
-int Game::getCurrentLevel( void ) const{
-	return currentLevel;
-}
-
 
 /** @brief Define um vetor com os tabuleiros do jogo.
     @param boards_ Os tabuleiros
@@ -200,13 +184,6 @@ bool Game::setBoards( std::vector<std::vector<std::string>> boards_ ){
     @return Os tabuleiros. */
 std::vector<std::vector<std::string>> Game::getBoards( void ) const{
 	return boards;
-}
-
-
-/** @brief Recupera o tabuleiro atual do jogo.
-    @return O tabuleiro. */
-std::vector<std::string> Game::getCurrentBoard( void ) const{
-	return currentBoard;
 }
 
 
@@ -256,3 +233,39 @@ std::vector<Game::Position> Game::getSizeBoards( void ) const{
 	return sizesBoards;
 }
 
+// ======================================================
+// GETTERS AND SETTERS DA CLASSE LEVEL
+// ======================================================
+
+
+/** @brief Define a fase atual que o jogador se encontra.
+    @param level_ A fase
+    @return True se tiver um numero de fases maior que zero; False otherwise. */
+bool Game::setCurrentLevel( int level_ ){
+    if( level_ > 0 ){
+        lv.currentLevel = level_;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+/** @brief Recupera a fase atual do jogo.
+    @return A fase. */
+int Game::getCurrentLevel( void ) const{
+    return lv.currentLevel;
+}
+
+/** @brief Recupera o tabuleiro atual do jogo.
+    @return O tabuleiro. */
+std::vector<std::string> Game::getCurrentBoard( void ) const{
+    return lv.currentBoard;
+}
+
+/** @brief Define o tabuleiro atual do jogo.
+    @param level_ O tabuleiro
+    @return True se tiver um tabuleiro; False otherwise. */
+bool setCurrentBoard( std::vector<std::string> tabuleiro ){
+    lv.currentBoard = tabuleiro;
+}
