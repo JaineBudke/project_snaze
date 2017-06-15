@@ -1,7 +1,7 @@
 /**
  * @file    game.h
- * @brief   Arquivo cabeçalho com a implementacao de funcoes que
-                 controlam o jogo.
+ * @brief   Arquivo cabeçalho com a implementacao de funcoes 
+            que controlam o jogo.
  * @author  Daniel Barbosa (nome@email.com)
  * @author  Jaine Budke (jainebudke@hotmail.com)
  * @since   30/05/2017
@@ -20,7 +20,7 @@ Level lv; // instanciando classe level
 // ======================================================
 
 /** @brief Identifica a posicao inicial da Snake no tabuleiro.
-     @return Posicao inicial da Snake */
+    @return Posicao inicial da Snake */
 Game::Position Game::initialPosition(){
 
     // Percorre board tentando encontrar inicio
@@ -37,35 +37,38 @@ Game::Position Game::initialPosition(){
 
 }
 
+
 /** @brief Lança uma maçã no jogo, dentro das coordenadas do tabuleiro da fase.
-     @return Posicao em que a maçã foi lançada */
+    @return Posicao em que a maçã foi lançada */
 Game::Position Game::throwApple(){
 
-    /*
-    bool valido = false;
+    bool invalido = true;
 
     std::srand(std::time(0)); // semente do rand
-    Position tamanho = sizesBoards[currentLevel-1]; // pega tamanho do level atual
+    Position tamanho = sizesBoards[lv.currentLevel-1]; // pega tamanho do level atual
 
+    // sorteia a maçã até cair num espaço livre
     do{
 
-        int menor = 0;
-        int maiorLinha   = tamanho.y;
-        int maiorColuna = tamanho.x;
+        int menor = 1;
+        int maiorLinha  = tamanho.y -1;
+        int maiorColuna = tamanho.x -1;
 
-        int appleLinha   = rand()%(maiorLinha-menor+1) + menor;    // sorteia um numero aleatorio para a linha
-        int appleColuna = rand()%(maiorColuna-menor+1) + menor; // sorteia um numero aleatorio para a coluna
+        int aL = rand()%(maiorLinha-menor+1) + menor;  // sorteia um numero aleatorio para a linha
+        int aC = rand()%(maiorColuna-menor+1) + menor; // sorteia um numero aleatorio para a coluna
 
-        valido = true;
+        if( isFree(lv.currentBoard[aL][aC]) ){
+            invalido = false;
+            lv.currentBoard[aL][aC] = 'o';
+        }
 
-    } while( valido );
-
-    */
+    } while( invalido );
 
 }
 
+
 /** @brief Move a cobra de acordo com as coordenadas passadas.
-     @return Direcao que deve se mover */
+    @return Direcao que deve se mover */
 Game::Direction Game::moveSnake(){
 
 	// TODO
@@ -83,20 +86,20 @@ bool Game::isWall( char ch ){
 }
 
 /** @brief Verifica se o caractere passado é uma parede invisivel.
-     @return 1 se for, 0 se não for */
+    @return 1 se for, 0 se não for */
 bool Game::isInvisibleWall( char ch ){
     return ( ch == '.' );
 }
 
 
 /** @brief Verifica se o caractere passado é um lugar livre.
-     @return 1 se for, 0 se não for */
+    @return 1 se for, 0 se não for */
 bool Game::isFree( char ch ){
     return ( ch == ' ' );
 }
 
 /** @brief Verifica se o caractere passado é a posicao inicial.
-     @return 1 se for, 0 se não for */
+    @return 1 se for, 0 se não for */
 bool Game::isInitialPosition( char ch ){
     return ( ch == '*' );
 }
@@ -109,7 +112,11 @@ bool Game::isInitialPosition( char ch ){
 /** @brief Aumenta o tamanho da cobra. */
 void Game::expandSnake(){
 
-	// TODO
+    // SE tamanho da snake for 1 ela é transformada na cobra
+    // SE tamanho da snake for maior que 1 ela cresce
+
+    // SE qntidade de maçãs comidas for o total -> STATE = LEVEL_UP
+    // SE qntidade de maçãs comidas for menor que o total -> STATE = RUN e lança maçã
 
 }
 
@@ -123,6 +130,8 @@ void Game::levelUp(){
         lv.currentBoard = boards[lv.currentLevel-1]; // recupera o tabuleiro do level
     }
 
+    currentState = RUN;
+
 }
 
 
@@ -130,6 +139,8 @@ void Game::levelUp(){
 bool Game::crashSnake(){
 
 	// TODO
+    // mensagem de "Oh no! You're crash"
+    // Muda estado pra DEAD
 
 }
 
@@ -138,6 +149,20 @@ bool Game::crashSnake(){
 void Game::deadSnake(){
 
 	// TODO
+    // diminui uma vida da snake
+    // pede pra pressionar ENTER pra continuar
+    // Muda estado pra RUN
+
+}
+
+/** @brief A cobra anda a quantidade de vezes até chegar na maçã. */
+void Game::runSnake(){
+
+    // TODO
+    // loop que roda até a snake comer a maçã ou bater numa parede ou rabo
+    // * chama o metodo moveSnake
+    // * SE bater na parede muda estado para CRASH
+    // * SE comer a maçã muda estado para EXPAND
 
 }
 

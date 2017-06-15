@@ -13,6 +13,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <ctime>
 
 #include "level.h"
 
@@ -25,7 +26,7 @@ class Game {
     public:
 
         //** @brief Criando um Game vazio (inicializacao).
-        Game() : lives(5) { /* empty */ }
+        Game() : lives(5), currentState(EXPAND) { /* empty */ }
 
 
         /**
@@ -45,10 +46,19 @@ class Game {
         typedef struct {
         	int x; //<! Indica a coordenada X (coluna)
         	int y; //<! Indica a coordenada Y (linha )
-
-        	// TODO: sobrecarga de operador
         } Direction; // Representa o vetor a ser somado com uma posição
 
+        /**
+         *  Esse eh o enum States
+         *  Esta estrutura é capaz de indicar uma direcao (x,y) para um elemento seguir.
+         */
+        enum States {
+            RUN = 0,   // Snake deve andar até pegar maçã
+            EXPAND,   // Snake anda uma vez e cresce o tamanho
+            LEVEL_UP,  // Snake pegou todas as maçãs e avança um level
+            CRASH,     // Snake bateu na parede ou no próprio rabo
+            DEAD       // Snake perdeu todas as vidas
+        };
 
 
         // ======================================================
@@ -68,6 +78,7 @@ class Game {
         /** @brief Identifica a posicao inicial da Snake no tabuleiro.
             @return Posicao inicial da Snake */
         Position initialPosition();
+
 
 
         // ======================================================
@@ -112,6 +123,8 @@ class Game {
         /** @brief Simula a morte da cobra (diminui uma vida). */
         void deadSnake();
 
+        /** @brief A cobra anda a quantidade de vezes até chegar na maçã. */
+        void runSnake();
 
 
         // ======================================================
@@ -191,6 +204,9 @@ class Game {
         /** @brief Recupera o tabuleiro atual do jogo.
             @return O tabuleiro. */
         std::vector<std::string> getCurrentBoard( void ) const;
+
+    public:
+        int currentState;                                //<! proximo estado do jogo
 
     private:
         int levels; 					                 //<! quantidade de fases do jogo

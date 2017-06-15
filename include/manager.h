@@ -21,51 +21,48 @@
  */
 class Manager {
 
-
-
-
     public:
 
         enum SnakeError {
-	BOARD_OK = 0,              // Arquivo lido corretamente
-	MISSING_START,	 // Não há posição inicial
-	EXTRANEOUS_SYMBOL, // Encontrado símbolo diferente de '#', ' ', '*', '.'
-	ARCHIVE_NOT_FIND       // Arquivo nao encontrado
+			BOARD_OK = 0,        // Arquivo lido corretamente
+			MISSING_START,		 // Não há posição inicial
+			EXTRANEOUS_SYMBOL,	 // Encontrado símbolo diferente de '#', ' ', '*', '.'
+			ARCHIVE_NOT_FIND     // Arquivo nao encontrado
         };
 
 
-    /** @brief Analisa os tabuleiros e verifica se tem algum erro.
-         @return Se labirinto está correto ou aponta o erro identificado. */
-    SnakeError parsing(  );
+	    /** @brief Analisa os tabuleiros e verifica se tem algum erro.
+	        @return Se labirinto está correto ou aponta o erro identificado. */
+	    SnakeError parsing(  );
 
-    /** @brief Inicializa lendo o arquivo de entrada fornecido pelo jogador.
-         @param arq Nome do arquivo de entrada.
-         @return Se arquivo foi lido corretamente ou aponta o erro identificado. */
-    SnakeError initialize( char * arq );
-
-
-    //** @brief Exibe as informações iniciais e condição geral do jogo.
-    void welcome();
+	    /** @brief Inicializa lendo o arquivo de entrada fornecido pelo jogador.
+	        @param arq Nome do arquivo de entrada.
+	        @return Se arquivo foi lido corretamente ou aponta o erro identificado. */
+	    SnakeError initialize( char * arq );
 
 
-    /** @brief Verifica se o jogo ainda deve ou não continuar sendo executado.
-        @return True se o jogo acabou; 0 jogo continua. */
-    bool gameOver();
+	    //** @brief Exibe as informações iniciais e condição geral do jogo.
+	    void welcome();
 
 
-    //** @brief Faz a chamada da próxima rodada do jogo.
-    void process_events();
+	    /** @brief Verifica se o jogo ainda deve ou não continuar sendo executado.
+	        @return True se o jogo acabou; 0 jogo continua. */
+	    bool gameOver();
 
 
-    //** @brief Atualiza o estado do jogo.
-    void update();
-
-    	//** @brief Exibe os resultados da rodada para o jogador.
-    void render();
+	    //** @brief Faz a chamada da próxima rodada do jogo.
+	    void process_events();
 
 
-    //** @brief Exibe os resultados finais do jogo para o jogador.
-    void render_log();
+	    //** @brief Atualiza o estado do jogo.
+	    void update();
+
+	    //** @brief Exibe os resultados da rodada para o jogador.
+	    void render();
+
+
+	    //** @brief Exibe os resultados finais do jogo para o jogador.
+	    void render_log();
 
 };
 

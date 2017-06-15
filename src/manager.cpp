@@ -179,11 +179,24 @@ void Manager::process_events(){
 //** @brief Atualiza o estado do jogo.
 void Manager::update(){
 
-    // TODO
-    gm.throwApple();
-    gm.levelUp();
-
-
+    switch (gm.currentState){
+        case Game::States::RUN:
+            gm.runSnake();
+            break;
+        case Game::States::EXPAND:
+            gm.expandSnake();
+            break;
+        case Game::States::LEVEL_UP:
+            gm.levelUp();
+            break;
+        case Game::States::CRASH:
+            gm.crashSnake();
+            break;
+        case Game::States::DEAD:
+            gm.deadSnake();
+            break;
+    }
+    
 }
 
 //** @brief Exibe os resultados da rodada para o jogador.

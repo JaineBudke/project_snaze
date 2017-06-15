@@ -19,8 +19,9 @@ class Snake {
 
 	public:
 		//** @brief Criando um Snake vazio (inicializacao).
-	    Snake() : sizeSnake(3) { /* empty */ }
+	    Snake() : sizeSnake(1) { /* empty */ }
 
+		
 
 
 	private:
