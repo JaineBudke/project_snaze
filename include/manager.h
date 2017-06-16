@@ -14,6 +14,8 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <unistd.h>
+
 
 /**
  *  Essa eh a classe Manager

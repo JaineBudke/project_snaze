@@ -4,7 +4,6 @@
 Game gm;
 
 
-
 /** @brief Analisa o tabuleiro e verifica se tem algum erro.
      @return Se labirinto está correto ou aponta o erro identificado. */
 Manager::SnakeError Manager::parsing(  ){
@@ -125,10 +124,10 @@ void Manager::welcome(){
     std::cout << ":::        ////////      ///      //////    ///      ///    ///////////     //////////         :::\n";
     std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
 
-    std::cout << ">>> Bem-vindo ao Snake!\n";
-    std::cout << ">>> Esta é uma simulação com os dados de entrada fornecidos.\n";
-    std::cout << ">>> O jogo possui " << n_levels << " fases e você tem " << n_lives << " vidas! Boa sorte!\n";
-    std::cout << ">>> Pressione <ENTER> quando estiver pronto para começar.";
+    std::cout << ":::                                     Bem-vindo ao Snaze!                                    :::\n";
+    std::cout << ":::                             Esta é uma simulação do game Snake.                            :::\n";
+    std::cout << ":::                       O jogo possui " << n_levels << " fases e você tem " << n_lives << " vidas! Boa sorte!                 :::\n";
+    std::cout << ":::                      Pressione <ENTER> quando estiver pronto para começar.                 :::";
     std::string dummy;
     std::getline( std::cin, dummy );
 
@@ -142,7 +141,6 @@ bool Manager::gameOver(){
     int levels_       = gm.getLevels();
     int life          = gm.getLives();
 
-    std::cout << "STATE: " << gm.currentState << "\n";
 
     // - se jogador passou de todos os niveis
     if( currentLevel_ > levels_ ){
@@ -164,17 +162,8 @@ bool Manager::gameOver(){
 //** @brief Faz a chamada da próxima rodada do jogo.
 void Manager::process_events(){
 
-    std::vector<std::string> currentBoard_ = gm.getCurrentBoard();
-    Game::Position initial = gm.initialPosition();
-
-
-    std::cout << "============== LEVEL "<< gm.getCurrentLevel() <<" ==============\n";
-    std::cout << ">>> Voce possui " << gm.getLives() << " vidas e o tabuleiro desta fase está abaixo. Boa sorte!\n";
-
-    for( int i=0; i < currentBoard_.size() ; i++ ){
-    	std::cout << currentBoard_[i] << "\n";
-    }
-    std::cout << "\n";
+    // pausa por 5 segundos
+    usleep(1000000);
 
 }
 
@@ -204,8 +193,23 @@ void Manager::update(){
 //** @brief Exibe os resultados da rodada para o jogador.
 void Manager::render(){
 
-    // TODO
-    // - Apresenta o tabuleiro com a posicao do snake e da maçã
+
+    std::vector<std::string> currentBoard_ = gm.getCurrentBoard();
+    Game::Position initial = gm.initialPosition();
+    std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
+    std::cout << ":::                                                                                            :::\n";
+    std::cout << ":::                                           LEVEL "<< gm.getCurrentLevel() <<"                                          :::\n";
+    std::cout << ":::                                                                                            :::\n";
+    std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
+
+    std::cout << ":::                                                                                            :::\n";
+    std::cout << ":::             Voce possui " << gm.getLives() << " vidas e o tabuleiro desta fase está abaixo. Boa sorte!           :::\n";
+    std::cout << ":::                                                                                            :::\n";
+
+    for( int i=0; i < currentBoard_.size() ; i++ ){
+        std::cout << "::: " << currentBoard_[i] << "\n";
+    }
+    std::cout << ":::                                                                                            :::\n";
 
 }
 

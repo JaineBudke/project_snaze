@@ -29,8 +29,8 @@ Game::Position Game::initialPosition(){
             if( lv.currentBoard[i][j] == '*' ){
                 Position inicial;
                 inicial.x = j; // coluna
-            	inicial.y = i; // linha
-            	return inicial;
+            	   inicial.y = i; // linha
+            	   return inicial;
             }
         }
     }
@@ -77,22 +77,32 @@ bool Game::moveSnake(){
     // TODO
     // FAZER ESSA PARTE CONSIDERANDO QUE A SNAKE PODE SER GRANDE
     // ENTAO TEM QUE MOVER COM O DEQUE TODAS AS POSICOES DELA NO BOARD
+    // AO INVES DE SÓ DESENHAR UM CARACTERE A MAIS
 
 
     Direction dir = sk.listDirections[sk.currentDirection];
     lv.currentBoard[dir.y][dir.x] = '~';
 
+
+    // se colidiu de alguma forma
     if( collideTail() or collideWall() ){
         currentState = CRASH;
-        return true;
+        return true; // muda stop pra true
     }
 
+    // se chegou na maçã
     if( eatingApple() ){
         currentState = EXPAND;
+        return true; // muda stop pra true
+    }
+
+    if( sk.listDirections.size() == sk.currentDirection ){
         return true;
     }
 
-    return true;
+    sk.currentDirection += 1;
+
+    return false; // muda stop pra false - continua rodando
 
 
 }
@@ -152,7 +162,7 @@ bool Game::eatingApple( ){
 
     // TODO
 
-    return true;
+    return false;
 }
 
 
@@ -199,7 +209,7 @@ void Game::levelUp(){
         throwApple();
     }
 
-    currentState = RUN;
+    currentState = EXPAND;
 
 }
 
@@ -231,13 +241,12 @@ void Game::runSnake(){
 
     sk.solveMaze();
 
-    bool stop = false;
+    bool stop = moveSnake();
 
-    // loop que roda até a snake comer a maçã, bater numa parede ou no rabo
-    do{
-        // quando uma das condicoes for descumprida, stop é ativado
-        stop = moveSnake();
-    } while( stop );
+    // verifica se a condicao de parada foi acionada
+    if( stop == false ){
+        currentState = RUN;
+    }
 
 }
 

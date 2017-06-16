@@ -23,9 +23,9 @@ class Level {
 	   //** @brief Criando um Game vazio (inicializacao).
 	   Level() : currentLevel(0), totalApples(10), eatenApples(0) { /* empty */ }
 
+
             	   std::vector<std::string> currentBoard;   //<! tabuleiro atualmente sendo processado
             	   int currentLevel;			   //<! level atual do processo
-                //Game::Position startPosition; 	   //<! posicao inicial da cobra na fase atual
                 int totalApples;                                        //<! total de macas da fase
                 int eatenApples;			   //<! quantidade de maçãs que já foram comidas
 

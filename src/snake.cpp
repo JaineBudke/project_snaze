@@ -30,7 +30,7 @@ bool Snake::solveMaze(){
     dir1.x = posInicial.x + 1;
     dir1.y = posInicial.y;
 
-    dir2.x = dir1.x + 1;
+    dir2.x = posInicial.x + 2;
     dir2.y = dir1.y;
 
     listDirections.push_back( dir1 );
