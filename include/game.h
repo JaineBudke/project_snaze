@@ -70,13 +70,13 @@ class Game {
         Position throwApple();
 
 
-        /** @brief Move a cobra de acordo com as coordenadas passadas buscadas na classe Snake.
-            @return Direcao que deve se mover */
-        Direction moveSnake();
+        /** @brief Move a cobra uma posicao, de acordo com as coordenadas passadas buscadas na classe Snake.
+             @return 1 se cobra chegou na maca, bateu na parede ou rabo. 0 otherwise. */
+        bool moveSnake();
 
 
         /** @brief Identifica a posicao inicial da Snake no tabuleiro.
-            @return Posicao inicial da Snake */
+             @return Posicao inicial da Snake */
         Position initialPosition();
 
 
@@ -101,6 +101,20 @@ class Game {
         /** @brief Verifica se o caractere passado é a posicao inicial.
              @return 1 se for, 0 se não for */
         bool isInitialPosition( char ch );
+
+
+        /** @brief Verifica se a snake colidiu com o tail.
+             @return 1 se colidiu, 0 otherwise */
+        bool collideTail( );
+
+
+        /** @brief Verifica se a snake colidiu com a parede.
+             @return 1 se colidiu, 0 otherwise */
+        bool collideWall( );
+
+        /** @brief Verifica se a snake chegou na maca.
+             @return 1 se chegou, 0 otherwise */
+        bool eatingApple( );
 
 
 
@@ -154,7 +168,7 @@ class Game {
 
 
         /** @brief Diminui uma vida do jogador.
- 	        @return True se tinha vidas pra diminuir; False otherwise. */
+ 	@return True se tinha vidas pra diminuir; False otherwise. */
         bool setLives( );
 
 
@@ -214,6 +228,8 @@ class Game {
         int lives;   			                         //<! vidas da cobra
         int state;					                     //<! 0 se jogador perdeu or 1 se venceu
         std::vector<Position> sizesBoards; 	             //<! tamanhos dos tabuleiros
+
+        Position maca;                            //<! posicao da maca no jogo
 
 };
 

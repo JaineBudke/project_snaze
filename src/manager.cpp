@@ -128,7 +128,7 @@ void Manager::welcome(){
     std::cout << ">>> Bem-vindo ao Snake!\n";
     std::cout << ">>> Esta é uma simulação com os dados de entrada fornecidos.\n";
     std::cout << ">>> O jogo possui " << n_levels << " fases e você tem " << n_lives << " vidas! Boa sorte!\n";
-    std::cout << ">>> Pressione alguma tecla quando estiver pronto para começar.";
+    std::cout << ">>> Pressione <ENTER> quando estiver pronto para começar.";
     std::string dummy;
     std::getline( std::cin, dummy );
 
@@ -141,6 +141,8 @@ bool Manager::gameOver(){
     int currentLevel_ = gm.getCurrentLevel();
     int levels_       = gm.getLevels();
     int life          = gm.getLives();
+
+    std::cout << "STATE: " << gm.currentState << "\n";
 
     // - se jogador passou de todos os niveis
     if( currentLevel_ > levels_ ){
@@ -196,7 +198,7 @@ void Manager::update(){
             gm.deadSnake();
             break;
     }
-    
+
 }
 
 //** @brief Exibe os resultados da rodada para o jogador.

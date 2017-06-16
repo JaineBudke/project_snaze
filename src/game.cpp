@@ -1,6 +1,6 @@
 /**
  * @file    game.h
- * @brief   Arquivo cabeçalho com a implementacao de funcoes 
+ * @brief   Arquivo cabeçalho com a implementacao de funcoes
             que controlam o jogo.
  * @author  Daniel Barbosa (nome@email.com)
  * @author  Jaine Budke (jainebudke@hotmail.com)
@@ -10,10 +10,10 @@
 
 
 #include "game.h"
-
+#include "snake.h"
 
 Level lv; // instanciando classe level
-
+Snake sk; // instanciando classe snake
 
 // ======================================================
 // ACTIONS
@@ -54,12 +54,15 @@ Game::Position Game::throwApple(){
         int maiorLinha  = tamanho.y -1;
         int maiorColuna = tamanho.x -1;
 
-        int aL = rand()%(maiorLinha-menor+1) + menor;  // sorteia um numero aleatorio para a linha
-        int aC = rand()%(maiorColuna-menor+1) + menor; // sorteia um numero aleatorio para a coluna
+        Position pos;
 
-        if( isFree(lv.currentBoard[aL][aC]) ){
+        pos.y = rand()%(maiorLinha-menor+1) + menor;  // sorteia um numero aleatorio para a linha
+        pos.x = rand()%(maiorColuna-menor+1) + menor; // sorteia um numero aleatorio para a coluna
+
+        if( isFree(lv.currentBoard[pos.y][pos.x]) ){
             invalido = false;
-            lv.currentBoard[aL][aC] = 'o';
+            lv.currentBoard[pos.y][pos.x] = 'o';
+            maca = pos;
         }
 
     } while( invalido );
@@ -68,10 +71,29 @@ Game::Position Game::throwApple(){
 
 
 /** @brief Move a cobra de acordo com as coordenadas passadas.
-    @return Direcao que deve se mover */
-Game::Direction Game::moveSnake(){
+     @return 1 se cobra chegou na maca, bateu na parede ou rabo. 0 otherwise. */
+bool Game::moveSnake(){
 
-	// TODO
+    // TODO
+    // FAZER ESSA PARTE CONSIDERANDO QUE A SNAKE PODE SER GRANDE
+    // ENTAO TEM QUE MOVER COM O DEQUE TODAS AS POSICOES DELA NO BOARD
+
+
+    Direction dir = sk.listDirections[sk.currentDirection];
+    lv.currentBoard[dir.y][dir.x] = '~';
+
+    if( collideTail() or collideWall() ){
+        currentState = CRASH;
+        return true;
+    }
+
+    if( eatingApple() ){
+        currentState = EXPAND;
+        return true;
+    }
+
+    return true;
+
 
 }
 
@@ -80,29 +102,59 @@ Game::Direction Game::moveSnake(){
 // ======================================================
 
 /** @brief Verifica se o caractere passado é uma parede.
-    @return 1 se for, 0 se não for */
+     @return 1 se for, 0 se não for */
 bool Game::isWall( char ch ){
     return ( ch == '#' );
 }
 
 /** @brief Verifica se o caractere passado é uma parede invisivel.
-    @return 1 se for, 0 se não for */
+     @return 1 se for, 0 se não for */
 bool Game::isInvisibleWall( char ch ){
     return ( ch == '.' );
 }
 
 
 /** @brief Verifica se o caractere passado é um lugar livre.
-    @return 1 se for, 0 se não for */
+     @return 1 se for, 0 se não for */
 bool Game::isFree( char ch ){
     return ( ch == ' ' );
 }
 
 /** @brief Verifica se o caractere passado é a posicao inicial.
-    @return 1 se for, 0 se não for */
+     @return 1 se for, 0 se não for */
 bool Game::isInitialPosition( char ch ){
     return ( ch == '*' );
 }
+
+
+/** @brief Verifica se a snake colidiu com o tail.
+     @return 1 se colidiu, 0 otherwise */
+bool Game::collideTail( ){
+
+    // TODO
+
+    return false;
+}
+
+
+/** @brief Verifica se a snake colidiu com a parede.
+     @return 1 se colidiu, 0 otherwise */
+bool Game::collideWall( ){
+
+    // TODO
+
+    return false;
+}
+
+/** @brief Verifica se a snake chegou na maca.
+     @return 1 se chegou, 0 otherwise */
+bool Game::eatingApple( ){
+
+    // TODO
+
+    return true;
+}
+
 
 
 // ======================================================
@@ -112,11 +164,27 @@ bool Game::isInitialPosition( char ch ){
 /** @brief Aumenta o tamanho da cobra. */
 void Game::expandSnake(){
 
+    Position pos = initialPosition();
+
     // SE tamanho da snake for 1 ela é transformada na cobra
+    if( sk.sizeSnake == 1 ){
+        lv.currentBoard[pos.y][pos.x] = '~';
+    }
+
     // SE tamanho da snake for maior que 1 ela cresce
+    if( sk.sizeSnake > 1 ){
+        sk.sizeSnake += 1; // snake cresce
+    }
 
     // SE qntidade de maçãs comidas for o total -> STATE = LEVEL_UP
+    if( lv.eatenApples == lv.totalApples ){
+        currentState = LEVEL_UP;
+    }
+
     // SE qntidade de maçãs comidas for menor que o total -> STATE = RUN e lança maçã
+    if( lv.eatenApples < lv.totalApples ){
+        currentState = RUN;
+    }
 
 }
 
@@ -128,6 +196,7 @@ void Game::levelUp(){
 
     if( lv.currentLevel <= levels ){
         lv.currentBoard = boards[lv.currentLevel-1]; // recupera o tabuleiro do level
+        throwApple();
     }
 
     currentState = RUN;
@@ -138,9 +207,8 @@ void Game::levelUp(){
 /** @brief Verifica se a cobra teve alguma colisão. */
 bool Game::crashSnake(){
 
-	// TODO
-    // mensagem de "Oh no! You're crash"
-    // Muda estado pra DEAD
+    std::cout << "Oh no! You're crash!\n";
+    currentState = DEAD;
 
 }
 
@@ -148,21 +216,28 @@ bool Game::crashSnake(){
 /** @brief Simula a morte da cobra (diminui uma vida). */
 void Game::deadSnake(){
 
-	// TODO
-    // diminui uma vida da snake
-    // pede pra pressionar ENTER pra continuar
-    // Muda estado pra RUN
+    lives -= 1;
+
+    std::cout << ">>> Pressione <ENTER> quando estiver pronto para continuar.";
+    std::string dummy;
+    std::getline( std::cin, dummy );
+
+    currentState = RUN;
 
 }
 
 /** @brief A cobra anda a quantidade de vezes até chegar na maçã. */
 void Game::runSnake(){
 
-    // TODO
-    // loop que roda até a snake comer a maçã ou bater numa parede ou rabo
-    // * chama o metodo moveSnake
-    // * SE bater na parede muda estado para CRASH
-    // * SE comer a maçã muda estado para EXPAND
+    sk.solveMaze();
+
+    bool stop = false;
+
+    // loop que roda até a snake comer a maçã, bater numa parede ou no rabo
+    do{
+        // quando uma das condicoes for descumprida, stop é ativado
+        stop = moveSnake();
+    } while( stop );
 
 }
 
