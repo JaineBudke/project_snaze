@@ -162,7 +162,7 @@ bool Manager::gameOver(){
 //** @brief Faz a chamada da próxima rodada do jogo.
 void Manager::process_events(){
 
-    // pausa por 5 segundos
+    // pausa por alguns segundos
     usleep(1000000);
 
 }

@@ -20,6 +20,8 @@ bool Snake::solveMaze(){
     // FAZER ESSA PARTE ACHANDO REALMENTE DIRECAO VALIDA PARA A SNAKE
 
     // recuperar a posicao inicial automaticamente tbm
+
+    /*
     Game::Position posInicial;
     posInicial.x = 3;  // coluna
     posInicial.y = 5;  // linha
@@ -35,5 +37,20 @@ bool Snake::solveMaze(){
 
     listDirections.push_back( dir1 );
     listDirections.push_back( dir2 );
+  */
+
+    // std::stack< Direction > dir1;
+
+    /* ETAPAS
+        - pega posicao inicial e verifica as 4 direcoes possiveis:
+          * se (posInicial.x+1, posInicial.y) for "free" ou "positionMaca", add na pilha     --- posicao pra direita
+          * se (posInicial.x-1, posInicial.y) for "free" ou "positionMaca", add na pilha      --- posicao pra esquerda
+          * se (posInicial.x, posInicial.y+1) for "free" ou "positionMaca", add na pilha     --- posicao pra cima
+          * se (posInicial.x+1, posInicial.y-1) for "free" ou "positionMaca", add na pilha  --- posicao pra baixo
+
+        - laço percorrendo cada uma das posicoes da pilha:
+           *
+
+    */
 
 }
