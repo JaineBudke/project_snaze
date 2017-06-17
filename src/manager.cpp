@@ -5,7 +5,7 @@ Game gm;
 
 
 /** @brief Analisa o tabuleiro e verifica se tem algum erro.
-     @return Se labirinto está correto ou aponta o erro identificado. */
+    @return Se labirinto está correto ou aponta o erro identificado. */
 Manager::SnakeError Manager::parsing(  ){
 
     std::vector<std::vector<std::string>> boards_ = gm.getBoards(); // pega os tabuleiros do jogo

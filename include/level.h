@@ -24,10 +24,10 @@ class Level {
 	   Level() : currentLevel(0), totalApples(10), eatenApples(0) { /* empty */ }
 
 
-            	   std::vector<std::string> currentBoard;   //<! tabuleiro atualmente sendo processado
-            	   int currentLevel;			   //<! level atual do processo
-                int totalApples;                                        //<! total de macas da fase
-                int eatenApples;			   //<! quantidade de maçãs que já foram comidas
+    	std::vector<std::string> currentBoard;   //<! tabuleiro atualmente sendo processado
+    	int currentLevel;			  			 //<! level atual do processo
+        int totalApples;                         //<! total de macas da fase
+        int eatenApples;			   			 //<! quantidade de maçãs que já foram comidas
 
 
 };

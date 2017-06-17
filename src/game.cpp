@@ -80,7 +80,7 @@ bool Game::moveSnake(){
     // AO INVES DE SÓ DESENHAR UM CARACTERE A MAIS
 
 
-    Direction dir = sk.listDirections[sk.currentDirection];
+    Position dir = sk.listDirections[sk.currentDirection];
     lv.currentBoard[dir.y][dir.x] = '~';
 
 
