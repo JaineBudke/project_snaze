@@ -42,15 +42,13 @@ Position adjacent_position( Position pos, direction_t dir )
     @return 1 se for possível, 0 se for impossível. */
 bool Snake::solveMaze(){
 
-    Position p(2,2);
-    std::cout << "P("<<p.x<<","<<p.y<<")\n";
-    p = adjacent_position(p, Direction::NORTH);
-    std::cout << "P("<<p.x<<","<<p.y<<")\n";
-    p = adjacent_position(p, Direction::SOUTH);
-    std::cout << "P("<<p.x<<","<<p.y<<")\n";
-    p = adjacent_position(p, Direction::WEST);
-    std::cout << "P("<<p.x<<","<<p.y<<")\n";
-    p = adjacent_position(p, Direction::EAST);
+    std::cout << "TESTE1\n";
+
+
+    // ========= COMO USAR O ADJACENT_POSITION ===========
+    // Position p(2,2);
+    // p = adjacent_position(p, Direction::NORTH);
+
 
 
 
@@ -60,8 +58,8 @@ bool Snake::solveMaze(){
     // recuperar a posicao inicial automaticamente tbm
 
     // VER JEITO DE RECUPERAR ISSO
-    //std::vector<Position> tamanhos = gm.getSizeBoards();
-    //Position tam = tamanhos[ gm.getCurrentLevel() ];
+    // std::vector<Position> tamanhos = gm.getSizeBoards();
+    // Position tam = tamanhos[ gm.getCurrentLevel() ];
 
     /*
     int map[13][44];  // criando um mapa do labirinto

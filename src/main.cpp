@@ -22,6 +22,7 @@ int main( int argc, char * argv[] ){
 		return 0;
 	}
 
+
 	// Initial message
     	mg.welcome();
 

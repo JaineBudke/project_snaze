@@ -26,8 +26,8 @@ enum Direction
 
 struct Position
 {
-	int x;   /*<! linha da posição */
-	int y; /*<! coluna da posição */
+	int x;   //<! coluna da posição
+	int y;   //<! linha da posição
 
 	/*! inicializador */
 	Position( int x_=0, int y_=0 )
@@ -41,19 +41,19 @@ struct Position
 		switch( dir )
 		{
 			case Direction::NORTH:
-				x -= 1;
-				break;
-
-			case Direction::SOUTH:
-				x += 1;
-				break;
-
-			case Direction::WEST:
 				y -= 1;
 				break;
 
-		  	case Direction::EAST:
+			case Direction::SOUTH:
 				y += 1;
+				break;
+
+			case Direction::WEST:
+				x -= 1;
+				break;
+
+		  	case Direction::EAST:
+				x += 1;
 				break;
 			default:
 				cout << "Invalid Direction!";
