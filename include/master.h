@@ -9,11 +9,11 @@
 using namespace std;
 
 
-/*! enumeração de direções 
+/*! enumeração de direções
 
 			 north
 	    west __|__ east
-		       |     
+		       |
 		     south
 	*/
 enum Direction
@@ -30,7 +30,7 @@ struct Position
 	int y; /*<! coluna da posição */
 
 	/*! inicializador */
-	Position( int x_=0, int y_=0 ) 
+	Position( int x_=0, int y_=0 )
 		: x(x_)
 		, y(y_)
 	{ /*empty*/ }
@@ -38,21 +38,21 @@ struct Position
 	/*! configurador: muda a posição de acordo com uma direção */
 	void set( const direction_t& dir )
 	{
-		switch( dir ) 
+		switch( dir )
 		{
 			case Direction::NORTH:
 				x -= 1;
 				break;
-				
+
 			case Direction::SOUTH:
 				x += 1;
 				break;
 
-			case Direction::WEST: 
+			case Direction::WEST:
 				y -= 1;
 				break;
-				
-		  	case Direction::EAST: 
+
+		  	case Direction::EAST:
 				y += 1;
 				break;
 			default:
@@ -64,35 +64,12 @@ struct Position
 /*! estrutura que vai definir o significado de cada caracter no mapa/labirinto */
 struct Map
 {
-	char init    = 'i'; /*<! Caracter que define local inicial da snake */ 
+	char init    = 'i'; /*<! Caracter que define local inicial da snake */
 	char wall    = '#'; /*<! Caracter que define uma parede */
 	char way     = ' '; /*<! Caracter que define um caminho aberto */
 	char spawn   = '*'; /*<! Caracter que define um local da comida */
 	char marker  = '.'; /*<! Caracter que define um marcador */
 };
 
-Position adjacent_position( Position pos, direction_t dir )
-{
-    switch( dir ) 
-    {
-        case Direction::NORTH:
-            pos.set(Direction::NORTH);
-            break;
-            
-        case Direction::SOUTH:
-            pos.set(Direction::SOUTH);
-            break;
-
-        case Direction::WEST: 
-            pos.set(Direction::WEST);
-            break;
-            
-        case Direction::EAST: 
-            pos.set(Direction::EAST);
-            break;
-    }
-
-    return pos;
-}
 
 #endif

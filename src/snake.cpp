@@ -13,9 +13,45 @@
 
 
 
+Position adjacent_position( Position pos, direction_t dir )
+{
+    switch( dir )
+    {
+        case Direction::NORTH:
+            pos.set(Direction::NORTH);
+            break;
+
+        case Direction::SOUTH:
+            pos.set(Direction::SOUTH);
+            break;
+
+        case Direction::WEST:
+            pos.set(Direction::WEST);
+            break;
+
+        case Direction::EAST:
+            pos.set(Direction::EAST);
+            break;
+    }
+
+    return pos;
+}
+
+
 /** @brief Tenta encontrar caminho para chegar na maçã.
     @return 1 se for possível, 0 se for impossível. */
 bool Snake::solveMaze(){
+
+    Position p(2,2);
+    std::cout << "P("<<p.x<<","<<p.y<<")\n";
+    p = adjacent_position(p, Direction::NORTH);
+    std::cout << "P("<<p.x<<","<<p.y<<")\n";
+    p = adjacent_position(p, Direction::SOUTH);
+    std::cout << "P("<<p.x<<","<<p.y<<")\n";
+    p = adjacent_position(p, Direction::WEST);
+    std::cout << "P("<<p.x<<","<<p.y<<")\n";
+    p = adjacent_position(p, Direction::EAST);
+
 
 
     // TODO
@@ -27,6 +63,7 @@ bool Snake::solveMaze(){
     //std::vector<Position> tamanhos = gm.getSizeBoards();
     //Position tam = tamanhos[ gm.getCurrentLevel() ];
 
+    /*
     int map[13][44];  // criando um mapa do labirinto
     for( int i=0 ; i < 13 ; i++ ){
         for( int j=0 ; j < 44 ; j++ ){
@@ -72,46 +109,46 @@ bool Snake::solveMaze(){
         // Vizinhos:
         Position north, south, east, west;
         north.x = currentPosition.x;     // persiste coluna
-        /*if( (currentPosition.y)+1 == 0 or (currentPosition.y)+1 == 1 ){*/
+        if( (currentPosition.y)+1 == 0 or (currentPosition.y)+1 == 1 ){
             north.y = (currentPosition.y)+1;  // incrementa linha
-        /*} else {
+        } else {
             north.x = 0;
             north.y = 0;
-        }*/
+        }
 
 
         south.x = currentPosition.x;     // persiste coluna
-       /* if( (currentPosition.y)-1 == 0 or (currentPosition.y)-1 == 1 ){*/
+        if( (currentPosition.y)-1 == 0 or (currentPosition.y)-1 == 1 ){
             south.y = (currentPosition.y)-1; // decrementa linha
-       /* } else {
+        } else {
             south.x = 0;
             south.y = 0;
-        }*/
-        
-/*
-        if( (currentPosition.x)-1 == 0 or (currentPosition.x)-1 == 1 ){*/
+        }
+
+
+        if( (currentPosition.x)-1 == 0 or (currentPosition.x)-1 == 1 ){
             east.x = (currentPosition.x)-1; // decrementa coluna
-       /* } else {
+        } else {
             east.x = 0;
             east.y = 0;
-        }*/
+        }
         east.y = currentPosition.y;     // persiste linha
 
 
-       /* if( (currentPosition.x)+1 == 0 or (currentPosition.x)+1 == 1 ){*/
+       if( (currentPosition.x)+1 == 0 or (currentPosition.x)+1 == 1 ){
             west.x = (currentPosition.x)+1; // incrementa coluna
-        /*} else {
+        } else {
             west.x = 0;
             west.y = 0;
-        }*/
+        }
         west.y = currentPosition.y;     // persiste linha
 
 
-        if(    map[north.y][north.x] == 0 
+        if(    map[north.y][north.x] == 0
             or map[south.y][south.x] == 0
             or map[east.y][east.x]   == 0
             or map[west.y][west.x]   == 0 ){ // vizinhos não sao parede nem foram visitados
-            
+
             // escolhe um dos vizinhos
             Position vizinho;
             if( map[north.y][north.x] == 0 ){
@@ -157,15 +194,15 @@ bool Snake::solveMaze(){
             std::cout << "TESTE6\n";
 
         } else if( currentPosition.x == maca.x and currentPosition.y == maca.y ){
-            
+
             while( !(marked.empty()) ){
-                // ve quem é o prox 
+                // ve quem é o prox
                 Position dir = marked.top();
 
                 std::cout << dir.y << " ; " <<dir.x << " - ";
                 // add na lista
                 listDirections.push_back( dir );
-                // tira ele 
+                // tira ele
                 marked.pop();
 
             }
@@ -176,7 +213,7 @@ bool Snake::solveMaze(){
 
 
     }
-
+    */
     return false;
 
 }
