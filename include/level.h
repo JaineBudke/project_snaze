@@ -10,6 +10,7 @@
 #ifndef _LEVEL_H_
 #define _LEVEL_H_
 
+#include "master.h"
 
 /**
  *  Essa eh a classe Level
@@ -29,6 +30,8 @@ class Level {
         int totalApples;                         //<! total de macas da fase
         int eatenApples;			   			 //<! quantidade de maçãs que já foram comidas
 
+
+        Position initial; //<! posicao inicial no tabuleiro
 
 };
 

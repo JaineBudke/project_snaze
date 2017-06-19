@@ -38,160 +38,94 @@ Position adjacent_position( Position pos, direction_t dir )
 }
 
 
+bool valid_adjacent_position( Position pos, Position size ){
+
+    // TODO
+    // verificar se a posicao passada por parametro eh valida, ou seja, as duas coordenadas estao dentro do intervalo do mapa (isso trata a segmentation fault)
+    return true;
+
+}
+
+
+
 /** @brief Tenta encontrar caminho para chegar na maçã.
     @return 1 se for possível, 0 se for impossível. */
-bool Snake::solveMaze(){
+bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPosition, Position sizeBoard, Position apple ){
 
     std::cout << "TESTE1\n";
+
 
 
     // ========= COMO USAR O ADJACENT_POSITION ===========
     // Position p(2,2);
     // p = adjacent_position(p, Direction::NORTH);
 
-
-
-
     // TODO
     // FAZER ESSA PARTE ACHANDO REALMENTE DIRECAO VALIDA PARA A SNAKE
 
-    // recuperar a posicao inicial automaticamente tbm
-
-    // VER JEITO DE RECUPERAR ISSO
-    // std::vector<Position> tamanhos = gm.getSizeBoards();
-    // Position tam = tamanhos[ gm.getCurrentLevel() ];
-
-    /*
-    int map[13][44];  // criando um mapa do labirinto
-    for( int i=0 ; i < 13 ; i++ ){
-        for( int j=0 ; j < 44 ; j++ ){
-            map[i][j] = 0;
-        }
-    }
-
-    for( int i=0 ; i < 13 ; i++ ){
-        map[i][0] = 1;
-        map[i][43] = 1;
-    }
-
-    for( int j=0 ; j < 44 ; j++ ){
-        map[0][j] = 1;
-        map[12][j] = 1;
-    }
-
-    Position maca;
-    maca.y = 6;
-    maca.x = 38;
 
 
-    int visited = 110;
+    Game gm; // instancia apenas para acessar funcoes de auxilio
 
+    int freeSpaces = 0; // espacos livres no tabuleiro
+    std::stack< Position > marked; // pilha
+    Position currentPosition; // variavel que controla a posicao atual do backtracking
 
-    Position posInicial;
-    posInicial.x = 3;  // coluna
-    posInicial.y = 5;  // linha
+    // criando um mapa de posicoes -- (1) ocupado ; (0) livre
+    int map[sizeBoard.y][sizeBoard.x];
+    for( int i=0 ; i < sizeBoard.y ; i++ ){
+        for( int j=0 ; j < sizeBoard.x; j++ ){
 
-    std::stack< Position > marked;
-
-    Position currentPosition;
-
-    // Tornar initialPosition a celula atual e marcar como visitada
-    currentPosition = posInicial;
-    map[posInicial.y][posInicial.x] = 1;
-    visited += 1;
-
-    // buscar celulas ainda não visitadas
-    while( visited <= 44*13 ){
-
-        // verifica se os vizinhos estao livres ou tem maçã
-        // Vizinhos:
-        Position north, south, east, west;
-        north.x = currentPosition.x;     // persiste coluna
-        if( (currentPosition.y)+1 == 0 or (currentPosition.y)+1 == 1 ){
-            north.y = (currentPosition.y)+1;  // incrementa linha
-        } else {
-            north.x = 0;
-            north.y = 0;
-        }
-
-
-        south.x = currentPosition.x;     // persiste coluna
-        if( (currentPosition.y)-1 == 0 or (currentPosition.y)-1 == 1 ){
-            south.y = (currentPosition.y)-1; // decrementa linha
-        } else {
-            south.x = 0;
-            south.y = 0;
-        }
-
-
-        if( (currentPosition.x)-1 == 0 or (currentPosition.x)-1 == 1 ){
-            east.x = (currentPosition.x)-1; // decrementa coluna
-        } else {
-            east.x = 0;
-            east.y = 0;
-        }
-        east.y = currentPosition.y;     // persiste linha
-
-
-       if( (currentPosition.x)+1 == 0 or (currentPosition.x)+1 == 1 ){
-            west.x = (currentPosition.x)+1; // incrementa coluna
-        } else {
-            west.x = 0;
-            west.y = 0;
-        }
-        west.y = currentPosition.y;     // persiste linha
-
-
-        if(    map[north.y][north.x] == 0
-            or map[south.y][south.x] == 0
-            or map[east.y][east.x]   == 0
-            or map[west.y][west.x]   == 0 ){ // vizinhos não sao parede nem foram visitados
-
-            // escolhe um dos vizinhos
-            Position vizinho;
-            if( map[north.y][north.x] == 0 ){
-                vizinho = north;
-                visited += 1;
-                map[north.y][north.x] = 1;
-                std::cout << "TESTE1\n";
-            } else if( map[south.y][south.x] == 0 ){
-                vizinho = south;
-                visited += 1;
-                map[south.y][south.x] = 1;
-                std::cout << "TESTE2\n";
-            } else if( map[east.y][east.x]   == 0 ){
-                vizinho = east;
-                visited += 1;
-                map[east.y][east.x] = 1;
-                std::cout << "TESTE3\n";
-            } else if( map[west.y][west.x]   == 0 ){
-                vizinho = west;
-                visited += 1;
-                map[west.y][west.x] = 1;
-                std::cout << "TESTE4\n";
+            if( gm.isWall( currentBoard[i][j] ) ){ // se a posicao atual eh uma parede, tá ocupado
+                map[i][j] = 1;
+            } else if( gm.isInvisibleWall( currentBoard[i][j] ) ){  // se a posicao atual eh uma parede invisivel, tá ocupado
+                map[i][j] = 1;
+            } else { // se tiver livre
+                map[i][j] = 0; // inicializa tudo com 0
+                freeSpaces+=1; // encontra o numero de espacos livres
             }
 
-            std::cout << "TESTE5\n";
+        }
+    }
 
-            // dá o push da posicao atual pra pilha
-            marked.push( currentPosition );
 
-            // posicao atual agora é o vizinho escolhido
-            currentPosition = vizinho;
+    // =========== BACKTRACKING ============ //
 
-        } else if( !(marked.empty()) ){ // se a pilha não estiver vazia
 
-            // tira o ultimo elemento da pilha
-            marked.pop();
+    // 1. Tornar initialPosition a celula atual e marcar como visitada
+    currentPosition = initialPosition;
+    map[initialPosition.y][initialPosition.x] = 1; // torna espaco ocupado
+    freeSpaces -= 1; // diminui um espaco livre
 
-            // vê e salva quem é o proximo
-            Position newPosition = marked.top();
+    // 2. Buscar celulas ainda não visitadas
+    while( freeSpaces > 0 ){ // vai rodar enquanto tiver espaco vazios no mapa
 
-            // torna nova célula a atual
-            currentPosition = newPosition;
-            std::cout << "TESTE6\n";
+        Position neigh_north, neigh_south, neigh_east, neigh_west; //<! posicoes dos vizinhos
 
-        } else if( currentPosition.x == maca.x and currentPosition.y == maca.y ){
+        // define posicoes dos vizinhos
+        neigh_north = adjacent_position(currentPosition, Direction::NORTH);
+        neigh_south = adjacent_position(currentPosition, Direction::SOUTH);
+        neigh_east   = adjacent_position(currentPosition, Direction::EAST);
+        neigh_west  = adjacent_position(currentPosition, Direction::WEST);
+
+        // se a posicao for invalida:
+        // muda posicao pra inicial, que sabe q tá ocupada (foi ocupada no passo 1)
+        // isso evita ele tentar acessar em algum momento um valor que nao existe - falha de segmentacao
+        if( valid_adjacent_position( neigh_north, sizeBoard ) == false ){ // se a posicao for invalida
+            neigh_north = initialPosition;
+        }
+        if( valid_adjacent_position( neigh_south, sizeBoard ) == false ){ // se a posicao for invalida
+            neigh_south = initialPosition;
+        }
+        if( valid_adjacent_position( neigh_east, sizeBoard ) == false ){ // se a posicao for invalida
+            neigh_east = initialPosition;
+        }
+        if( valid_adjacent_position( neigh_west, sizeBoard ) == false ){ // se a posicao for invalida
+            neigh_west = initialPosition;
+        }
+
+        // verifica se a posicao atual eh a maca
+        if( currentPosition.x == apple.x and currentPosition.y == apple.y ){
 
             while( !(marked.empty()) ){
                 // ve quem é o prox
@@ -204,14 +138,58 @@ bool Snake::solveMaze(){
                 marked.pop();
 
             }
-            std::cout << "TESTE7\n";
 
             return true;
+
+        }
+        // 3. Verifica se os vizinhos estão livres (e se sao validos) ou tem maçã
+        else if(     map[neigh_north.y][neigh_north.x]  == 0
+            or map[neigh_south.y][neigh_south.x] == 0
+            or map[neigh_east.y][neigh_east.x]     == 0
+            or map[neigh_west.y][neigh_west.x]    == 0 ){ // vizinhos livres (não sao parede nem foram visitados)
+
+
+            // 4. escolhe um dos vizinhos (em um deles vai entrar obrigatoriamente)
+            Position vizinho;
+            if( map[neigh_north.y][neigh_north.x] == 0 ){
+                vizinho = neigh_north;   // determina quem eh o vizinho
+                freeSpaces -= 1; // diminui um espaco livre
+                map[neigh_north.y][neigh_north.x] = 1; // marca no map que a posicao tá ocupada
+            } else if( map[neigh_south.y][neigh_south.x] == 0 ){
+                vizinho = neigh_south;
+                freeSpaces -= 1;
+                map[neigh_south.y][neigh_south.x] = 1;
+            } else if( map[neigh_east.y][neigh_east.x]   == 0 ){
+                vizinho = neigh_east;
+                freeSpaces -= 1;
+                map[neigh_east.y][neigh_east.x] = 1;
+            } else if( map[neigh_west.y][neigh_west.x]   == 0 ){
+                vizinho = neigh_west;
+                freeSpaces -= 1;
+                map[neigh_west.y][neigh_west.x] = 1;
+            }
+
+             // dá o push da posicao atual pra pilha
+             marked.push( currentPosition );
+
+             // posicao atual agora é o vizinho escolhido
+             currentPosition = vizinho;
+
+        } else if( !(marked.empty()) ){ // 2. Se nenhum vizinho estiver livre, mas a pilha ainda não estiver vazia
+
+            // tira o ultimo elemento da pilha
+            marked.pop();
+
+            // vê e salva quem é o proximo
+            Position newPosition = marked.top();
+
+            // torna nova célula a atual
+            currentPosition = newPosition;
+
         }
 
-
     }
-    */
+
     return false;
 
 }

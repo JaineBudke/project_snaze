@@ -30,6 +30,7 @@ Position Game::initialPosition(){
                 Position inicial;
                 inicial.x = j; // coluna
             	   inicial.y = i; // linha
+                lv.initial = inicial;
             	   return inicial;
             }
         }
@@ -146,7 +147,6 @@ bool Game::collideTail( ){
     return false;
 }
 
-
 /** @brief Verifica se a snake colidiu com a parede.
      @return 1 se colidiu, 0 otherwise */
 bool Game::collideWall( ){
@@ -177,8 +177,9 @@ void Game::expandSnake(){
     Position pos = initialPosition();
 
     // SE tamanho da snake for 1 ela é transformada na cobra
-    if( sk.sizeSnake == 1 ){
+    if( sk.sizeSnake == 0 ){
         lv.currentBoard[pos.y][pos.x] = '~';
+        sk.sizeSnake += 1; // snake cresce
     }
 
     // SE tamanho da snake for maior que 1 ela cresce
@@ -239,7 +240,7 @@ void Game::deadSnake(){
 /** @brief A cobra anda a quantidade de vezes até chegar na maçã. */
 void Game::runSnake(){
 
-    sk.solveMaze();
+    sk.solveMaze( lv.currentBoard, lv.initial, sizesBoards[ lv.currentLevel ], maca );
 
     bool stop = moveSnake();
 

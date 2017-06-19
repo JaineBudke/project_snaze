@@ -31,25 +31,6 @@ class Game {
 
 
         /**
-         *  Esse eh o struct Position
-         *  Esta estrutura é capaz de indicar a posicao (x,y) de um elemento.
-         */
-  /*      typedef struct {
-        	int x; //<! Indica a coordenada X (coluna)
-        	int y; //<! Indica a coordenada Y (linha )
-        } Position;*/
-
-
-        /**
-         *  Esse eh o struct Direction
-         *  Esta estrutura é capaz de indicar uma direcao (x,y) para um elemento seguir.
-         */
-      /*  typedef struct {
-        	int x; //<! Indica a coordenada X (coluna)
-        	int y; //<! Indica a coordenada Y (linha )
-        } Direction; // Representa o vetor a ser somado com uma posição*/
-
-        /**
          *  Esse eh o enum States
          *  Esta estrutura é capaz de indicar uma direcao (x,y) para um elemento seguir.
          */

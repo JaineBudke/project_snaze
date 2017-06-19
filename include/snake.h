@@ -25,12 +25,12 @@ class Snake {
 
 	public:
         //** @brief Criando um Snake vazio (inicializacao).
-	    Snake() : sizeSnake(1) { /* empty */ }
+	    Snake() : sizeSnake(0) { /* empty */ }
 
 
         /** @brief Tenta encontrar caminho para chegar na maçã.
             @return 1 se for possível, 0 se for impossível. */
-        bool solveMaze();
+        bool solveMaze( std::vector<std::string> currentBoard, Position initialPosition, Position sizeBoard, Position apple );
 
 
 	public:
