@@ -23,13 +23,13 @@ bool Snake::solveMaze(){
 
     // recuperar a posicao inicial automaticamente tbm
 
-    /* 
+    /*
     Game::Position posInicial;
     posInicial.x = 3;  // coluna
     posInicial.y = 5;  // linha
 
-    Game::Direction dir1;
-    Game::Direction dir2;
+    Game::Position dir1;
+    Game::Position dir2;
 
     dir1.x = posInicial.x + 1;
     dir1.y = posInicial.y;
@@ -47,8 +47,6 @@ bool Snake::solveMaze(){
     // VER JEITO DE RECUPERAR ISSO
     //std::vector<Game::Position> tamanhos = gm.getSizeBoards();
     //Game::Position tam = tamanhos[ gm.getCurrentLevel() ];
-
-
 
     int map[13][44];  // criando um mapa do labirinto
     for( int i=0 ; i < 13 ; i++ ){
