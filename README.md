@@ -18,12 +18,16 @@ O Snaze é uma simulação do jogo clássico Snake.
 
 Para compilar o projeto, basta digitar, pelo terminal, o comando abaixo
 
+	make
+
+ou
+
     g++ -std=c++11 src/manager.cpp src/main.cpp src/game.cpp src/snake.cpp -I include -o snake
     
 
 Comando para executar o programa
     
-    ./snake data/tab1
+    .bin/snake data/tab1
 
 
 ## TODO
