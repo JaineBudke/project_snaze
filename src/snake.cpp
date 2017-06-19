@@ -23,30 +23,9 @@ bool Snake::solveMaze(){
 
     // recuperar a posicao inicial automaticamente tbm
 
-    /*
-    Game::Position posInicial;
-    posInicial.x = 3;  // coluna
-    posInicial.y = 5;  // linha
-
-    Game::Position dir1;
-    Game::Position dir2;
-
-    dir1.x = posInicial.x + 1;
-    dir1.y = posInicial.y;
-
-    dir2.x = posInicial.x + 2;
-    dir2.y = dir1.y;
-
-    listDirections.push_back( dir1 );
-    listDirections.push_back( dir2 );
-    */
-
- 
-
-
     // VER JEITO DE RECUPERAR ISSO
-    //std::vector<Game::Position> tamanhos = gm.getSizeBoards();
-    //Game::Position tam = tamanhos[ gm.getCurrentLevel() ];
+    //std::vector<Position> tamanhos = gm.getSizeBoards();
+    //Position tam = tamanhos[ gm.getCurrentLevel() ];
 
     int map[13][44];  // criando um mapa do labirinto
     for( int i=0 ; i < 13 ; i++ ){
@@ -65,7 +44,7 @@ bool Snake::solveMaze(){
         map[12][j] = 1;
     }
 
-    Game::Position maca;
+    Position maca;
     maca.y = 6;
     maca.x = 38;
 
@@ -73,13 +52,13 @@ bool Snake::solveMaze(){
     int visited = 110;
 
 
-    Game::Position posInicial;
+    Position posInicial;
     posInicial.x = 3;  // coluna
     posInicial.y = 5;  // linha
 
-    std::stack< Game::Position > marked;
+    std::stack< Position > marked;
 
-    Game::Position currentPosition;
+    Position currentPosition;
 
     // Tornar initialPosition a celula atual e marcar como visitada
     currentPosition = posInicial;
@@ -91,40 +70,40 @@ bool Snake::solveMaze(){
 
         // verifica se os vizinhos estao livres ou tem maçã
         // Vizinhos:
-        Game::Position north, south, east, west;
+        Position north, south, east, west;
         north.x = currentPosition.x;     // persiste coluna
-        if( (currentPosition.y)+1 == 0 or (currentPosition.y)+1 == 1 ){
+        /*if( (currentPosition.y)+1 == 0 or (currentPosition.y)+1 == 1 ){*/
             north.y = (currentPosition.y)+1;  // incrementa linha
-        } else {
+        /*} else {
             north.x = 0;
             north.y = 0;
-        }
+        }*/
 
 
         south.x = currentPosition.x;     // persiste coluna
-        if( (currentPosition.y)-1 == 0 or (currentPosition.y)-1 == 1 ){
+       /* if( (currentPosition.y)-1 == 0 or (currentPosition.y)-1 == 1 ){*/
             south.y = (currentPosition.y)-1; // decrementa linha
-        } else {
+       /* } else {
             south.x = 0;
             south.y = 0;
-        }
+        }*/
         
-
-        if( (currentPosition.x)-1 == 0 or (currentPosition.x)-1 == 1 ){
+/*
+        if( (currentPosition.x)-1 == 0 or (currentPosition.x)-1 == 1 ){*/
             east.x = (currentPosition.x)-1; // decrementa coluna
-        } else {
+       /* } else {
             east.x = 0;
             east.y = 0;
-        }
+        }*/
         east.y = currentPosition.y;     // persiste linha
 
 
-        if( (currentPosition.x)+1 == 0 or (currentPosition.x)+1 == 1 ){
+       /* if( (currentPosition.x)+1 == 0 or (currentPosition.x)+1 == 1 ){*/
             west.x = (currentPosition.x)+1; // incrementa coluna
-        } else {
+        /*} else {
             west.x = 0;
             west.y = 0;
-        }
+        }*/
         west.y = currentPosition.y;     // persiste linha
 
 
@@ -134,7 +113,7 @@ bool Snake::solveMaze(){
             or map[west.y][west.x]   == 0 ){ // vizinhos não sao parede nem foram visitados
             
             // escolhe um dos vizinhos
-            Game::Position vizinho;
+            Position vizinho;
             if( map[north.y][north.x] == 0 ){
                 vizinho = north;
                 visited += 1;
@@ -171,7 +150,7 @@ bool Snake::solveMaze(){
             marked.pop();
 
             // vê e salva quem é o proximo
-            Game::Position newPosition = marked.top();
+            Position newPosition = marked.top();
 
             // torna nova célula a atual
             currentPosition = newPosition;
@@ -181,7 +160,7 @@ bool Snake::solveMaze(){
             
             while( !(marked.empty()) ){
                 // ve quem é o prox 
-                Game::Position dir = marked.top();
+                Position dir = marked.top();
 
                 std::cout << dir.y << " ; " <<dir.x << " - ";
                 // add na lista
@@ -201,3 +180,5 @@ bool Snake::solveMaze(){
     return false;
 
 }
+
+

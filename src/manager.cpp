@@ -64,11 +64,11 @@ Manager::SnakeError Manager::initialize( char * arq ){
 
 
     std::vector<std::vector<std::string>> tabuleiro;
-    std::vector<Game::Position> tamTabuleiros;
+    std::vector<Position> tamTabuleiros;
     int levels_ = 0;
 
 
-    Game::Position tamanho;
+    Position tamanho;
     std::string linhaBoard;
     std::string dummy;
 
@@ -195,7 +195,7 @@ void Manager::render(){
 
 
     std::vector<std::string> currentBoard_ = gm.getCurrentBoard();
-    Game::Position initial = gm.initialPosition();
+    Position initial = gm.initialPosition();
     std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
     std::cout << ":::                                                                                            :::\n";
     std::cout << ":::                                           LEVEL "<< gm.getCurrentLevel() <<"                                          :::\n";

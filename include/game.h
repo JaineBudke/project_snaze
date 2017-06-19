@@ -15,6 +15,7 @@
 #include <string>
 #include <ctime>
 
+#include "master.h"
 #include "level.h"
 
 /**
@@ -33,20 +34,20 @@ class Game {
          *  Esse eh o struct Position
          *  Esta estrutura é capaz de indicar a posicao (x,y) de um elemento.
          */
-        typedef struct {
+  /*      typedef struct {
         	int x; //<! Indica a coordenada X (coluna)
         	int y; //<! Indica a coordenada Y (linha )
-        } Position;
+        } Position;*/
 
 
         /**
          *  Esse eh o struct Direction
          *  Esta estrutura é capaz de indicar uma direcao (x,y) para um elemento seguir.
          */
-        typedef struct {
+      /*  typedef struct {
         	int x; //<! Indica a coordenada X (coluna)
         	int y; //<! Indica a coordenada Y (linha )
-        } Direction; // Representa o vetor a ser somado com uma posição
+        } Direction; // Representa o vetor a ser somado com uma posição*/
 
         /**
          *  Esse eh o enum States

@@ -1,8 +1,18 @@
 #include <iostream>
+#include "master.h"
 #include "manager.h"
 
 
 int main( int argc, char * argv[] ){
+	Position p(2,2);
+	std::cout << "P("<<p.x<<","<<p.y<<")\n";
+	p = adjacent_position(p, Direction::NORTH);
+	std::cout << "P("<<p.x<<","<<p.y<<")\n";
+	p = adjacent_position(p, Direction::SOUTH);
+	std::cout << "P("<<p.x<<","<<p.y<<")\n";
+	p = adjacent_position(p, Direction::WEST);
+	std::cout << "P("<<p.x<<","<<p.y<<")\n";
+	p = adjacent_position(p, Direction::EAST);
 
 	Manager mg;
 	auto result = mg.initialize( argv[1] );

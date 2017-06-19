@@ -21,7 +21,7 @@ Snake sk; // instanciando classe snake
 
 /** @brief Identifica a posicao inicial da Snake no tabuleiro.
     @return Posicao inicial da Snake */
-Game::Position Game::initialPosition(){
+Position Game::initialPosition(){
 
     // Percorre board tentando encontrar inicio
     for( int i = 0 ; i < lv.currentBoard.size() ; i++ ){        // Percorre cada pos do vector
@@ -40,7 +40,7 @@ Game::Position Game::initialPosition(){
 
 /** @brief Lança uma maçã no jogo, dentro das coordenadas do tabuleiro da fase.
     @return Posicao em que a maçã foi lançada */
-Game::Position Game::throwApple(){
+Position Game::throwApple(){
 
     bool invalido = true;
 
@@ -338,7 +338,7 @@ void Game::setSizeBoards( std::vector<Position> sizesBoards_ ){
 
 
 /** @brief Recupera o vetor com os tamanhos */
-std::vector<Game::Position> Game::getSizeBoards( void ) const{
+std::vector<Position> Game::getSizeBoards( void ) const{
 	return sizesBoards;
 }
 

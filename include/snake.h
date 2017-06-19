@@ -11,7 +11,9 @@
 #define _SNAKE_H_
 
 #include "game.h"
-#include "stack"
+#include "master.h"
+#include <deque>
+#include <stack>
 
 
 /**
@@ -33,7 +35,7 @@ class Snake {
 
 	public:
 	    int sizeSnake;                               //<! tamanho da cobra
-        std::vector<Game::Position> listDirections;  //<! lista de direcoes que a snake deve seguir
+        std::deque<Position> listDirections;  //<! lista de direcoes que a snake deve seguir
         int currentDirection;                        //<! direcao atual
 
 };
