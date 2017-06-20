@@ -43,7 +43,7 @@ class Snake {
 	    int sizeSnake;                               //<! tamanho da cobra
         std::deque<Position> listDirections;         //<! lista de direcoes que a snake deve seguir
         int currentDirection;                        //<! direcao atual
-        std::deque<Position> snake; 
+        std::deque<Position> snake;
 
 };
 

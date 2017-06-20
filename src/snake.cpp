@@ -36,7 +36,7 @@ Position adjacent_position( Position pos, direction_t dir )
 
 /** @brief determina se uma posição é válida e relação a um tabuleiro
     @param pos posição a ser analisada
-    @param size dimensoes do tabuleiro 
+    @param size dimensoes do tabuleiro
     @return true se a posição for válida, false caso contrário */
 bool is_valid_position( Position pos, Position size )
 {
@@ -60,7 +60,6 @@ bool Snake::is_body(const Position & pos) const
     @return 1 se for possível, 0 se for impossível. */
 bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPosition, Position sizeBoard, Position apple ){
 
-    std::cout << "TESTE1\n";
 
     // ========= COMO USAR O ADJACENT_POSITION ===========
     // Position p(2,2);
@@ -133,6 +132,10 @@ bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPo
         // verifica se a posicao atual eh a maca
         if( currentPosition == apple ){
 
+             // dá o push da maca pra pilha
+            marked.push( currentPosition );
+
+
             while( !(marked.empty()) ){
 
                 // ve quem é o prox
@@ -154,8 +157,8 @@ bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPo
             or map[neigh_east.y][neigh_east.x]     == 0
             or map[neigh_west.y][neigh_west.x]     == 0 ){ // vizinhos livres (não sao parede nem foram visitados)
 
-            
-            //=== AS VEZES ACHA MENOR CAMINHO 
+
+            //=== AS VEZES ACHA MENOR CAMINHO
 
             //tentando achar caminho menor:
             //ex: se a cobra esta disposta abaixo e ao lado esquerdo da maça ela tem que tentar primeir ir pro norte e leste
@@ -196,7 +199,7 @@ bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPo
             // }
 
             //CAMINHO MAIOR
-            
+
             if( map[neigh_north.y][neigh_north.x] == 0 ){
                 vizinho = neigh_north;   // determina quem eh o vizinho
                 freeSpaces -= 1; // diminui um espaco livre
@@ -214,7 +217,7 @@ bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPo
                 freeSpaces -= 1;
                 map[neigh_west.y][neigh_west.x] = 1;
             }
-            
+
              // dá o push da posicao atual pra pilha
              marked.push( currentPosition );
 
