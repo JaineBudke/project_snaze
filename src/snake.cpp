@@ -8,29 +8,26 @@
  * @date    19/06/2017
  */
 
-
 #include "snake.h"
-
-
 
 Position adjacent_position( Position pos, direction_t dir )
 {
     switch( dir )
     {
-        case Direction::NORTH:
-            pos.set(Direction::NORTH);
+        case NORTH:
+            pos.set( NORTH );
             break;
 
-        case Direction::SOUTH:
-            pos.set(Direction::SOUTH);
+        case SOUTH:
+            pos.set( SOUTH );
             break;
 
-        case Direction::WEST:
-            pos.set(Direction::WEST);
+        case WEST:
+            pos.set( WEST );
             break;
 
-        case Direction::EAST:
-            pos.set(Direction::EAST);
+        case EAST:
+            pos.set( EAST );
             break;
     }
 
@@ -39,13 +36,14 @@ Position adjacent_position( Position pos, direction_t dir )
 
 
 bool valid_adjacent_position( Position pos, Position size ){
+    // verificar se a posicao passada por parametro eh valida, ou seja, 
+    // as duas coordenadas estao dentro do intervalo do mapa (isso trata a segmentation fault)
+    if(pos.x >= 0 and pos.x < size.x and
+        pos.y >= 0 and pos.y < size.y )
+        return true;
 
-    // TODO
-    // verificar se a posicao passada por parametro eh valida, ou seja, as duas coordenadas estao dentro do intervalo do mapa (isso trata a segmentation fault)
-    return true;
-
+    false;
 }
-
 
 
 /** @brief Tenta encontrar caminho para chegar na maçã.
@@ -103,24 +101,24 @@ bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPo
         Position neigh_north, neigh_south, neigh_east, neigh_west; //<! posicoes dos vizinhos
 
         // define posicoes dos vizinhos
-        neigh_north = adjacent_position(currentPosition, Direction::NORTH);
-        neigh_south = adjacent_position(currentPosition, Direction::SOUTH);
-        neigh_east   = adjacent_position(currentPosition, Direction::EAST);
-        neigh_west  = adjacent_position(currentPosition, Direction::WEST);
+        neigh_north = adjacent_position(currentPosition, NORTH);
+        neigh_south = adjacent_position(currentPosition, SOUTH);
+        neigh_east   = adjacent_position(currentPosition, EAST);
+        neigh_west  = adjacent_position(currentPosition, WEST);
 
         // se a posicao for invalida:
         // muda posicao pra inicial, que sabe q tá ocupada (foi ocupada no passo 1)
         // isso evita ele tentar acessar em algum momento um valor que nao existe - falha de segmentacao
-        if( valid_adjacent_position( neigh_north, sizeBoard ) == false ){ // se a posicao for invalida
+        if( not valid_adjacent_position( neigh_north, sizeBoard ) ){ // se a posicao for invalida
             neigh_north = initialPosition;
         }
-        if( valid_adjacent_position( neigh_south, sizeBoard ) == false ){ // se a posicao for invalida
+        if( not valid_adjacent_position( neigh_south, sizeBoard ) ){ // se a posicao for invalida
             neigh_south = initialPosition;
         }
-        if( valid_adjacent_position( neigh_east, sizeBoard ) == false ){ // se a posicao for invalida
+        if( not valid_adjacent_position( neigh_east, sizeBoard ) ){ // se a posicao for invalida
             neigh_east = initialPosition;
         }
-        if( valid_adjacent_position( neigh_west, sizeBoard ) == false ){ // se a posicao for invalida
+        if( not valid_adjacent_position( neigh_west, sizeBoard ) ){ // se a posicao for invalida
             neigh_west = initialPosition;
         }
 
@@ -143,15 +141,55 @@ bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPo
 
         }
         // 3. Verifica se os vizinhos estão livres (e se sao validos) ou tem maçã
-        else if(     map[neigh_north.y][neigh_north.x]  == 0
-            or map[neigh_south.y][neigh_south.x] == 0
+        else if( map[neigh_north.y][neigh_north.x] == 0
+            or map[neigh_south.y][neigh_south.x]   == 0
             or map[neigh_east.y][neigh_east.x]     == 0
-            or map[neigh_west.y][neigh_west.x]    == 0 ){ // vizinhos livres (não sao parede nem foram visitados)
+            or map[neigh_west.y][neigh_west.x]     == 0 ){ // vizinhos livres (não sao parede nem foram visitados)
 
+
+            //=== AS VEZES ACHA MENOR CAMINHO 
+
+            //tentando achar caminho menor:
+            //ex: se a cobra esta disposta abaixo e ao lado esquerdo da maça ela tem que tentar primeir ir pro norte e leste
+            std::deque<Position> best_neigh;
+            //best_position_togo(best_neigh, currentPosition, apple); //seta a pilha best_neigh
+            if( currentPosition.y <= apple.y )
+            {
+                best_neigh.push_front( neigh_east );
+                best_neigh.push_back( neigh_west );
+            }
+            else
+            {
+                best_neigh.push_front( neigh_west );
+                best_neigh.push_back( neigh_east );
+            }
+
+            if( currentPosition.x <= apple.x )
+            {
+                best_neigh.push_front( neigh_south );
+                best_neigh.push_back( neigh_north );
+            }
+            else
+            {
+                best_neigh.push_front( neigh_north );
+                best_neigh.push_back( neigh_south );
+            }
 
             // 4. escolhe um dos vizinhos (em um deles vai entrar obrigatoriamente)
             Position vizinho;
-            if( map[neigh_north.y][neigh_north.x] == 0 ){
+            for (auto i = 0u; i < best_neigh.size(); i++)
+            {
+                if( map[best_neigh[i].y][best_neigh[i].x] == 0 ){
+                    vizinho = best_neigh[i];   // determina quem eh o vizinho
+                    freeSpaces -= 1; // diminui um espaco livre
+                    map[best_neigh[i].y][best_neigh[i].x] = 1; // marca no map que a posicao tá ocupada
+                    break;
+                }
+            }
+
+            //CAMINHO MAIOR
+            
+         /*   if( map[neigh_north.y][neigh_north.x] == 0 ){
                 vizinho = neigh_north;   // determina quem eh o vizinho
                 freeSpaces -= 1; // diminui um espaco livre
                 map[neigh_north.y][neigh_north.x] = 1; // marca no map que a posicao tá ocupada
@@ -168,15 +206,14 @@ bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPo
                 freeSpaces -= 1;
                 map[neigh_west.y][neigh_west.x] = 1;
             }
-
+            */
              // dá o push da posicao atual pra pilha
              marked.push( currentPosition );
 
              // posicao atual agora é o vizinho escolhido
              currentPosition = vizinho;
 
-        } else if( !(marked.empty()) ){ // 2. Se nenhum vizinho estiver livre, mas a pilha ainda não estiver vazia
-
+        } else if( !(marked.empty()) ){ // 5. Se nenhum vizinho estiver livre, mas a pilha ainda não estiver vazia
             // tira o ultimo elemento da pilha
             marked.pop();
 
@@ -185,13 +222,9 @@ bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPo
 
             // torna nova célula a atual
             currentPosition = newPosition;
-
         }
 
     }
 
     return false;
-
 }
-
-

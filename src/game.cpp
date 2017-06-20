@@ -240,7 +240,7 @@ void Game::deadSnake(){
 /** @brief A cobra anda a quantidade de vezes até chegar na maçã. */
 void Game::runSnake(){
 
-    sk.solveMaze( lv.currentBoard, lv.initial, sizesBoards[ lv.currentLevel ], maca );
+    sk.solveMaze( lv.currentBoard, lv.initial, sizesBoards[ lv.currentLevel - 1 ], maca );
 
     bool stop = moveSnake();
 

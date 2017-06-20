@@ -163,8 +163,8 @@ bool Manager::gameOver(){
 void Manager::process_events(){
 
     // pausa por alguns segundos
-    usleep(1000000);
-
+    //usleep(1000000);
+    usleep(100000);
 }
 
 //** @brief Atualiza o estado do jogo.

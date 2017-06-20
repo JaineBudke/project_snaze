@@ -1,7 +1,7 @@
 /**
  * @file    snake.h
  * @brief   Arquivo cabeçalho com as informacoes do jogador (snake).
- * @author  Daniel Barbosa (nome@email.com)
+ * @author  Edivânia Pontes (edivaniapts@gmail.com)
  * @author  Jaine Budke (jainebudke@hotmail.com)
  * @since   30/05/2017
  * @date    19/06/2017
@@ -31,7 +31,6 @@ class Snake {
         /** @brief Tenta encontrar caminho para chegar na maçã.
             @return 1 se for possível, 0 se for impossível. */
         bool solveMaze( std::vector<std::string> currentBoard, Position initialPosition, Position sizeBoard, Position apple );
-
 
 	public:
 	    int sizeSnake;                               //<! tamanho da cobra

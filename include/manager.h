@@ -36,7 +36,7 @@ class Manager {
 
 	    /** @brief Analisa os tabuleiros e verifica se tem algum erro.
 	        @return Se labirinto está correto ou aponta o erro identificado. */
-	    SnakeError parsing(  );
+	    SnakeError parsing();
 
 	    /** @brief Inicializa lendo o arquivo de entrada fornecido pelo jogador.
 	        @param arq Nome do arquivo de entrada.

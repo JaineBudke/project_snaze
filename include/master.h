@@ -1,10 +1,9 @@
 #ifndef _MASTER_H_
 #define _MASTER_H_
 
-#define direction_t short int
-
 #include <iostream>
 
+using direction_t = short int;
 
 using namespace std;
 
@@ -40,19 +39,19 @@ struct Position
 	{
 		switch( dir )
 		{
-			case Direction::NORTH:
+			case NORTH:
 				y -= 1;
 				break;
 
-			case Direction::SOUTH:
+			case SOUTH:
 				y += 1;
 				break;
 
-			case Direction::WEST:
+			case WEST:
 				x -= 1;
 				break;
 
-		  	case Direction::EAST:
+		  	case EAST:
 				x += 1;
 				break;
 			default:
