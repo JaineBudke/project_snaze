@@ -34,15 +34,13 @@ Position adjacent_position( Position pos, direction_t dir )
     return pos;
 }
 
-
-bool valid_adjacent_position( Position pos, Position size ){
-    // verificar se a posicao passada por parametro eh valida, ou seja, 
-    // as duas coordenadas estao dentro do intervalo do mapa (isso trata a segmentation fault)
-    if(pos.x >= 0 and pos.x < size.x and
-        pos.y >= 0 and pos.y < size.y )
-        return true;
-
-    false;
+/** @brief determina se uma posição é válida e relação a um tabuleiro
+    @param pos posição a ser analisada
+    @param size dimensoes do tabuleiro 
+    @return true se a posição for válida, false caso contrário */
+bool is_valid_position( Position pos, Position size )
+{
+    return (pos.x >= 0 and pos.x < size.x and pos.y >= 0 and pos.y < size.y );
 }
 
 
@@ -109,16 +107,16 @@ bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPo
         // se a posicao for invalida:
         // muda posicao pra inicial, que sabe q tá ocupada (foi ocupada no passo 1)
         // isso evita ele tentar acessar em algum momento um valor que nao existe - falha de segmentacao
-        if( not valid_adjacent_position( neigh_north, sizeBoard ) ){ // se a posicao for invalida
+        if( not is_valid_position( neigh_north, sizeBoard ) ){ // se a posicao for invalida
             neigh_north = initialPosition;
         }
-        if( not valid_adjacent_position( neigh_south, sizeBoard ) ){ // se a posicao for invalida
+        if( not is_valid_position( neigh_south, sizeBoard ) ){ // se a posicao for invalida
             neigh_south = initialPosition;
         }
-        if( not valid_adjacent_position( neigh_east, sizeBoard ) ){ // se a posicao for invalida
+        if( not is_valid_position( neigh_east, sizeBoard ) ){ // se a posicao for invalida
             neigh_east = initialPosition;
         }
-        if( not valid_adjacent_position( neigh_west, sizeBoard ) ){ // se a posicao for invalida
+        if( not is_valid_position( neigh_west, sizeBoard ) ){ // se a posicao for invalida
             neigh_west = initialPosition;
         }
 
