@@ -27,7 +27,7 @@ ou
 
 Comando para executar o programa
     
-    .bin/snake data/tab1
+    ./bin/snake data/tab1
 
 
 ## TODO
