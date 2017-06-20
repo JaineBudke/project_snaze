@@ -82,7 +82,16 @@ bool Game::moveSnake(){
 
 
     Position dir = sk.listDirections[sk.currentDirection];
-    lv.currentBoard[dir.y][dir.x] = '~';
+    sk.snake.push_front( dir );
+
+    Position back = sk.snake.back();   
+
+    sk.snake.pop_back();
+
+    Position front = sk.snake.front();
+
+    lv.currentBoard[back.y][back.x] = ' ';
+    lv.currentBoard[front.y][front.x] = '~';
 
 
     // se colidiu de alguma forma
@@ -179,6 +188,8 @@ void Game::expandSnake(){
     // SE tamanho da snake for 1 ela é transformada na cobra
     if( sk.sizeSnake == 0 ){
         lv.currentBoard[pos.y][pos.x] = '~';
+        sk.snake.push_front( pos );
+
         sk.sizeSnake += 1; // snake cresce
     }
 

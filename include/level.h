@@ -31,7 +31,7 @@ class Level {
         int eatenApples;			   			 //<! quantidade de maçãs que já foram comidas
 
 
-        Position initial; //<! posicao inicial no tabuleiro
+        Position initial;						 //<! posicao inicial no tabuleiro
 
 };
 
