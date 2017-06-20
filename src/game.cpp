@@ -99,8 +99,6 @@ bool Game::moveSnake(){
     if( eatingApple() ){
         currentState = EXPAND;
         lv.eatenApples += 1;
-        sk.listDirections.clear();
-
         return true; // muda stop pra true
     }
 
@@ -200,6 +198,9 @@ void Game::expandSnake(){
 
     // SE tamanho da snake for maior que 1 ela cresce
     if( sk.sizeSnake >= 1 ){
+        sk.listDirections.clear();
+        sk.currentDirection = 0;
+        lv.initial = sk.snake.back();
         sk.sizeSnake += 1; // snake cresce
     }
 
