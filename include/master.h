@@ -58,6 +58,12 @@ struct Position
 				cout << "Invalid Direction!";
 		}
 	}
+
+	/*! sobrecarga de operador == */
+	bool operator==( const Position& rhs ) const
+	{
+		return (y == rhs.y and x == rhs.x );
+	}
 };
 
 /*! estrutura que vai definir o significado de cada caracter no mapa/labirinto */

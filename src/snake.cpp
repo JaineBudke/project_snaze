@@ -43,14 +43,24 @@ bool is_valid_position( Position pos, Position size )
     return (pos.x >= 0 and pos.x < size.x and pos.y >= 0 and pos.y < size.y );
 }
 
+bool Snake::is_body(const Position & pos) const
+{
+    int i(snake.size()-2);
+    while( i >= 0 )
+    {
+        if( snake[i] == pos )
+            return true;
+        i--;
+    }
+    return false;
+}
+
 
 /** @brief Tenta encontrar caminho para chegar na maçã.
     @return 1 se for possível, 0 se for impossível. */
 bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPosition, Position sizeBoard, Position apple ){
 
     std::cout << "TESTE1\n";
-
-
 
     // ========= COMO USAR O ADJACENT_POSITION ===========
     // Position p(2,2);
@@ -121,7 +131,7 @@ bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPo
         }
 
         // verifica se a posicao atual eh a maca
-        if( currentPosition.x == apple.x and currentPosition.y == apple.y ){
+        if( currentPosition == apple ){
 
             while( !(marked.empty()) ){
 
