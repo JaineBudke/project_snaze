@@ -15,6 +15,7 @@
 #include <fstream>
 #include <iostream>
 #include <unistd.h>
+#include <stdlib.h> //system()
 #include "master.h"
 
 

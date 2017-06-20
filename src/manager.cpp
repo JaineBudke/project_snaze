@@ -112,10 +112,10 @@ Manager::SnakeError Manager::initialize( char * arq ){
 
 //** @brief Exibe as informações iniciais e condição geral do jogo.
 void Manager::welcome(){
-
     int n_levels = gm.getLevels();
     int n_lives  = gm.getLives();
 
+    system("clear");
     std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
     std::cout << ":::          ////////    ////////    ///    ////////////    ///////////     //////////         :::\n";
     std::cout << ":::         ///          ///   ///   ///    ///      ///            ///     ////               :::\n";
@@ -127,7 +127,10 @@ void Manager::welcome(){
     std::cout << ":::                                     Bem-vindo ao Snaze!                                    :::\n";
     std::cout << ":::                             Esta é uma simulação do game Snake.                            :::\n";
     std::cout << ":::                       O jogo possui " << n_levels << " fases e você tem " << n_lives << " vidas! Boa sorte!                 :::\n";
-    std::cout << ":::                      Pressione <ENTER> quando estiver pronto para começar.                 :::";
+    std::cout << ":::                      Pressione <ENTER> quando estiver pronto para começar.                 :::\n";
+    std::cout << ":::                                                                                            :::\n"; 
+    std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
+
     std::string dummy;
     std::getline( std::cin, dummy );
 
@@ -192,8 +195,7 @@ void Manager::update(){
 
 //** @brief Exibe os resultados da rodada para o jogador.
 void Manager::render(){
-
-
+    system("clear");
     std::vector<std::string> currentBoard_ = gm.getCurrentBoard();
     Position initial = gm.initialPosition();
     std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
@@ -209,8 +211,7 @@ void Manager::render(){
     for( int i=0; i < currentBoard_.size() ; i++ ){
         std::cout << "::: " << currentBoard_[i] << "\n";
     }
-    std::cout << ":::                                                                                            :::\n";
-
+    std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
 }
 
 //** @brief Exibe os resultados finais do jogo para o jogador.
