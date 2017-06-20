@@ -128,7 +128,7 @@ void Manager::welcome(){
     std::cout << ":::                             Esta é uma simulação do game Snake.                            :::\n";
     std::cout << ":::                       O jogo possui " << n_levels << " fases e você tem " << n_lives << " vidas! Boa sorte!                 :::\n";
     std::cout << ":::                      Pressione <ENTER> quando estiver pronto para começar.                 :::\n";
-    std::cout << ":::                                                                                            :::\n"; 
+    std::cout << ":::                                                                                            :::\n";
     std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
 
     std::string dummy;
@@ -205,7 +205,10 @@ void Manager::render(){
     std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
 
     std::cout << ":::                                                                                            :::\n";
-    std::cout << ":::             Voce possui " << gm.getLives() << " vidas e o tabuleiro desta fase está abaixo. Boa sorte!           :::\n";
+    std::cout << ":::                             LIVES: " << gm.getLives() << "    ||   Food eaten:  " << gm.getEatenApples() << " of 10                          :::\n";
+    std::cout << ":::                                                                                            :::\n";
+
+    std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
     std::cout << ":::                                                                                            :::\n";
 
     for( int i=0; i < currentBoard_.size() ; i++ ){

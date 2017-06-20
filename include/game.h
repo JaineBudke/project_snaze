@@ -201,6 +201,10 @@ class Game {
             @return O tabuleiro. */
         std::vector<std::string> getCurrentBoard( void ) const;
 
+        /** @brief Recupera as macas comidas do jogo.
+             @return A quandiade de macas. */
+        int getEatenApples( void );
+
     public:
         int currentState;                                //<! proximo estado do jogo
 

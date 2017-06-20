@@ -75,16 +75,11 @@ Position Game::throwApple(){
      @return 1 se cobra chegou na maca, bateu na parede ou rabo. 0 otherwise. */
 bool Game::moveSnake(){
 
-    // TODO
-    // FAZER ESSA PARTE CONSIDERANDO QUE A SNAKE PODE SER GRANDE
-    // ENTAO TEM QUE MOVER COM O DEQUE TODAS AS POSICOES DELA NO BOARD
-    // AO INVES DE SÓ DESENHAR UM CARACTERE A MAIS
-
 
     Position dir = sk.listDirections[sk.currentDirection];
     sk.snake.push_front( dir );
 
-    Position back = sk.snake.back();   
+    Position back = sk.snake.back();
 
     sk.snake.pop_back();
 
@@ -103,6 +98,9 @@ bool Game::moveSnake(){
     // se chegou na maçã
     if( eatingApple() ){
         currentState = EXPAND;
+        lv.eatenApples += 1;
+        sk.listDirections.clear();
+
         return true; // muda stop pra true
     }
 
@@ -169,11 +167,15 @@ bool Game::collideWall( ){
      @return 1 se chegou, 0 otherwise */
 bool Game::eatingApple( ){
 
-    // TODO
+    Position pos = sk.snake.front();
 
-    return false;
+    if( pos.x == maca.x and pos.y == maca.y ){
+        return true;
+    } else {
+        return false;
+    }
+
 }
-
 
 
 // ======================================================
@@ -185,6 +187,9 @@ void Game::expandSnake(){
 
     Position pos = initialPosition();
 
+    throwApple();
+
+
     // SE tamanho da snake for 1 ela é transformada na cobra
     if( sk.sizeSnake == 0 ){
         lv.currentBoard[pos.y][pos.x] = '~';
@@ -194,7 +199,7 @@ void Game::expandSnake(){
     }
 
     // SE tamanho da snake for maior que 1 ela cresce
-    if( sk.sizeSnake > 1 ){
+    if( sk.sizeSnake >= 1 ){
         sk.sizeSnake += 1; // snake cresce
     }
 
@@ -218,7 +223,6 @@ void Game::levelUp(){
 
     if( lv.currentLevel <= levels ){
         lv.currentBoard = boards[lv.currentLevel-1]; // recupera o tabuleiro do level
-        throwApple();
     }
 
     currentState = EXPAND;
@@ -389,4 +393,10 @@ std::vector<std::string> Game::getCurrentBoard( void ) const{
     @return True se tiver um tabuleiro; False otherwise. */
 bool setCurrentBoard( std::vector<std::string> tabuleiro ){
     lv.currentBoard = tabuleiro;
+}
+
+/** @brief Recupera as macas comidas do jogo.
+     @return A quandiade de macas. */
+int Game::getEatenApples( void ) {
+    return lv.eatenApples;
 }
