@@ -32,10 +32,10 @@ Comando para executar o programa
 
 ## TODO
 
-- [ ] Receber dados via leitura de arquivo.
-- [ ] Validar dados recebidos e detectar erros especificados.
-- [ ] Determinar um conjunto de direções corretamente (IA).
+- [x] Receber dados via leitura de arquivo.
+- [x] Validar dados recebidos e detectar erros especificados.
+- [x] Determinar um conjunto de direções corretamente (IA).
 - [ ] Trabalhar corretamente com os estados do jogo.
 
 
-Programa desenvolvido por _Daniel Barbosa_ (< *email@email.com* >) e _Jaine Budke_ (< *jainebudke@hotmail.com* >), 2017.1
+Programa desenvolvido por _Edivania Pontes_ (< *edivaniap@ufrn.edu.br* >) e _Jaine Budke_ (< *jainebudke@hotmail.com* >), 2017.1

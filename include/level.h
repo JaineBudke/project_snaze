@@ -1,10 +1,10 @@
 /**
  * @file    level.h
  * @brief   Arquivo cabeçalho com as informacoes da fase atual do jogo.
- * @author  Daniel Barbosa (nome@email.com)
+ * @author  Edivania Pontes (edivaniap@ufrn.edu.br)
  * @author  Jaine Budke (jainebudke@hotmail.com)
  * @since   30/05/2017
- * @date    19/06/2017
+ * @date    21/06/2017
  */
 
 #ifndef _LEVEL_H_

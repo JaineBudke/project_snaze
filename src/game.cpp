@@ -1,11 +1,11 @@
 /**
  * @file    game.h
- * @brief   Arquivo cabeçalho com a implementacao de funcoes
-            que controlam o jogo.
- * @author  Daniel Barbosa (nome@email.com)
+ * @brief   Arquivo com a implementacao de funcoes
+                que controlam o jogo.
+ * @author  Edivania Pontes (edivaniap@ufrn.edu.br)
  * @author  Jaine Budke (jainebudke@hotmail.com)
  * @since   30/05/2017
- * @date    19/06/2017
+ * @date    21/06/2017
  */
 
 
@@ -225,6 +225,11 @@ void Game::levelUp(){
     if( lv.currentLevel <= levels ){
         lv.currentBoard = boards[lv.currentLevel-1]; // recupera o tabuleiro do level
     }
+
+    // zera tudo das classes level e snake
+    lv.eatenApples = 0;
+    sk.snake.clear();
+    sk.sizeSnake = 0;
 
     currentState = EXPAND;
 

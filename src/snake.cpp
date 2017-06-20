@@ -1,11 +1,11 @@
 /**
  * @file    snake.cpp
  * @brief   Arquivo com as funcoes que implementam
-            a resolucao do labirinto.
- * @author  Daniel Barbosa (nome@email.com)
+             a resolucao do labirinto.
+ * @author  Edivania Pontes (edivaniap@ufrn.edu.br)
  * @author  Jaine Budke (jainebudke@hotmail.com)
  * @since   30/05/2017
- * @date    19/06/2017
+ * @date    21/06/2017
  */
 
 #include "snake.h"

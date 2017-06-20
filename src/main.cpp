@@ -1,3 +1,12 @@
+/**
+ * @file    main.cpp
+ * @brief   Arquivo principal do projeto.
+ * @author  Edivania Pontes (edivaniap@ufrn.edu.br)
+ * @author  Jaine Budke (jainebudke@hotmail.com)
+ * @since   30/05/2017
+ * @date    21/06/2017
+ */
+
 #include <iostream>
 
 #include "manager.h"

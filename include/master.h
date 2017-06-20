@@ -1,3 +1,12 @@
+/**
+ * @file    master.h
+ * @brief   Arquivo cabeçalho com a definição do struct Position.
+ * @author  Edivania Pontes (edivaniap@ufrn.edu.br)
+ * @author  Jaine Budke (jainebudke@hotmail.com)
+ * @since   30/05/2017
+ * @date    21/06/2017
+ */
+
 #ifndef _MASTER_H_
 #define _MASTER_H_
 

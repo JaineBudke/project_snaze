@@ -1,3 +1,13 @@
+/**
+ * @file    manager.cpp
+ * @brief   Arquivo com o gerenciamento do jogo.
+ * @author  Edivania Pontes (edivaniap@ufrn.edu.br)
+ * @author  Jaine Budke (jainebudke@hotmail.com)
+ * @since   30/05/2017
+ * @date    21/06/2017
+ */
+
+
 #include "manager.h"
 #include "game.h"
 
@@ -182,6 +192,10 @@ void Manager::update(){
             break;
         case Game::States::LEVEL_UP:
             gm.levelUp();
+                std::cout << ":::                                                                                            :::\n";
+                std::cout << ":::                      Pressione <ENTER> quando estiver pronto para começar.                 :::\n";
+                std::cout << ":::                                                                                            :::\n";
+                std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
             break;
         case Game::States::CRASH:
             gm.crashSnake();
@@ -199,6 +213,13 @@ void Manager::render(){
     std::vector<std::string> currentBoard_ = gm.getCurrentBoard();
     Position initial = gm.initialPosition();
     std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
+    std::cout << ":::          ////////    ////////    ///    ////////////    ///////////     //////////         :::\n";
+    std::cout << ":::         ///          ///   ///   ///    ///      ///            ///     ////               :::\n";
+    std::cout << ":::         ///////      ///    ///  ///    ////////////         ///        //////////         :::\n";
+    std::cout << ":::              ///     ///     /// ///    ///      ///      ///           ////               :::\n";
+    std::cout << ":::        ////////      ///      //////    ///      ///    ///////////     //////////         :::\n";
+    std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
+
     std::cout << ":::                                                                                            :::\n";
     std::cout << ":::                                           LEVEL "<< gm.getCurrentLevel() <<"                                          :::\n";
     std::cout << ":::                                                                                            :::\n";
