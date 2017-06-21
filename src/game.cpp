@@ -62,7 +62,7 @@ Position Game::throwApple(){
 
         if( isFree(lv.currentBoard[pos.y][pos.x]) ){
             invalido = false;
-            lv.currentBoard[pos.y][pos.x] = 'o';
+            lv.currentBoard[pos.y][pos.x] = 'a';
             maca = pos;
         }
 
@@ -70,35 +70,34 @@ Position Game::throwApple(){
 
 }
 
+void Game::paint_snake_on_board()
+{
+    lv.currentBoard[sk.snakeBody[0].y][sk.snakeBody[0].x] = '@'; //desenha a cabeça
+    for(auto i = 1u; i < sk.snakeBody.size(); i++)
+        lv.currentBoard[sk.snakeBody[i].y][sk.snakeBody[i].x] = '0';
+}
+
+void Game::clear_snake_of_board()
+{
+    for(auto i = 0u; i < sk.snakeBody.size(); i++)
+        lv.currentBoard[sk.snakeBody[i].y][sk.snakeBody[i].x] = ' ';
+}
+
 
 /** @brief Move a cobra de acordo com as coordenadas passadas.
      @return 1 se cobra chegou na maca, bateu na parede ou rabo. 0 otherwise. */
 bool Game::moveSnake(){
-
+    //std::cin.ignore(); //esperar enter
+    
     /* apaga desenho das antigas posicoes da cobra */
-    for(auto i = 0u; i < sk.snake.size(); i++)
-        lv.currentBoard[sk.snake[i].y][sk.snake[i].x] = ' ';
-
-    std::cout << "snake size " <<  sk.snake.size() << "\n"; //@edivania - meus testes
-    std::cin.ignore(); //esperar enter
+    clear_snake_of_board();    
 
     Position dir = sk.listDirections[sk.currentDirection];
+    sk.snakeBody.push_front( dir );
+    sk.snakeBody.pop_back();
 
-    sk.snake.push_front( dir );
-
-    Position back = sk.snake.back(); //VAI PODER APAGAR ISTO, QND DER CERTO
-
-    sk.snake.pop_back();
-
-    Position front = sk.snake.front(); //VAI PODER APAGAR ISTO, QND DER CERTO
-
-    /* tentativa de desenhar toda a cobra */
-    for(auto i = 0u; i < sk.snake.size(); i++)
-        lv.currentBoard[sk.snake[i].y][sk.snake[i].x] = '~';
-
-    /*lv.currentBoard[back.y][back.x] = ' ';
-    lv.currentBoard[front.y][front.x] = '~';*/
-
+    /* pintar toda a cobra no tab */
+    paint_snake_on_board();
 
     // se colidiu de alguma forma
     if( collideTail() or collideWall() ){
@@ -120,8 +119,6 @@ bool Game::moveSnake(){
     sk.currentDirection += 1;
 
     return false; // muda stop pra false - continua rodando
-
-
 }
 
 // ======================================================
@@ -176,7 +173,7 @@ bool Game::collideWall( ){
      @return 1 se chegou, 0 otherwise */
 bool Game::eatingApple( ){
 
-    Position pos = sk.snake.front();
+    Position pos = sk.snakeBody.front();
 
     if( pos == maca ){
         return true;
@@ -201,8 +198,8 @@ void Game::expandSnake(){
 
     // SE tamanho da snake for 1 ela é transformada na cobra
     if( sk.sizeSnake == 0 ){
-        lv.currentBoard[pos.y][pos.x] = '~';
-        sk.snake.push_front( pos );
+        lv.currentBoard[pos.y][pos.x] = '@';
+        sk.snakeBody.push_front( pos );
 
         sk.sizeSnake += 1; // snake cresce
     }
@@ -211,10 +208,10 @@ void Game::expandSnake(){
     if( sk.sizeSnake >= 1 ){
         sk.listDirections.clear();
         sk.currentDirection = 0;
-        lv.initial = sk.snake.back();
+        lv.initial = sk.snakeBody.back();
 
         /*AQUI NA VERDADE TENHO QUE GERAR UMA NOVA PÓS VALIDA !!!!!!!!1 PRA HEAD*/
-        sk.snake.push_front( sk.snake.front() ); // add nova posição para uma nova parte do corpo
+        sk.snakeBody.push_front( sk.snakeBody.front() ); // add nova posição para uma nova parte do corpo
 
         sk.sizeSnake += 1; // snake cresce
     }
@@ -243,7 +240,7 @@ void Game::levelUp(){
 
     // zera tudo das classes level e snake
     lv.eatenApples = 0;
-    sk.snake.clear();
+    sk.snakeBody.clear();
     sk.sizeSnake = 0;
 
     currentState = EXPAND;

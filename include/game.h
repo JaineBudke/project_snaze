@@ -205,6 +205,14 @@ class Game {
              @return A quandiade de macas. */
         int getEatenApples( void );
 
+        /** @brief seta as posições do tabuleiro 
+                   com carctere que representa a snake */
+        void paint_snake_on_board();
+
+        /** @brief seta as posições do tabuleiro que está com 
+                   corpo da cobra com carctere de caminho livre (espaço em branco) */
+        void clear_snake_of_board();
+
     public:
         int currentState;                                //<! proximo estado do jogo
 

@@ -10,7 +10,7 @@
 
 #include "snake.h"
 
-Position adjacent_position( Position pos, direction_t dir )
+Position Snake::adjacent_position( Position pos, direction_t dir )
 {
     switch( dir )
     {
@@ -34,41 +34,30 @@ Position adjacent_position( Position pos, direction_t dir )
     return pos;
 }
 
-/** @brief determina se uma posição é válida e relação a um tabuleiro
-    @param pos posição a ser analisada
-    @param size dimensoes do tabuleiro
-    @return true se a posição for válida, false caso contrário */
-bool is_valid_position( Position pos, Position size )
+bool Snake::is_valid_position( Position pos, Position size )
 {
     return (pos.x >= 0 and pos.x < size.x and pos.y >= 0 and pos.y < size.y );
 }
 
-// TODO
-// 3. Verifica se os vizinhos estão livres (e se sao validos) ou tem maçã
-// bool is_free_neighbourhood( const Position* & nbh_ ) const
-
-
-bool Snake::is_body(const Position & pos) const
+/* not working */
+bool Snake::is_snakeBody(const Position & pos) const
 {
-    int i(snake.size()-2);
+    std::cout << "TO TENTANDO SABER SE " << pos.y <<" "<< pos.x << " é body? " << "\n";
+    std::cout << "TAM SNAKE = " << snakeBody.size() << "\n";
+    std::cin.ignore(); //esperar enter
+    int i(snakeBody.size()-1); //nao precisa comparar o rabo
     while( i >= 0 )
     {
-        if( snake[i] == pos )
+        if( snakeBody[i] == pos )
             return true;
         i--;
     }
     return false;
 }
 
-
 /** @brief Tenta encontrar caminho para chegar na maçã.
     @return 1 se for possível, 0 se for impossível. */
 bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPosition, Position sizeBoard, Position apple ){
-
-
-    // ========= COMO USAR O ADJACENT_POSITION ===========
-    // Position p(2,2);
-    // p = adjacent_position(p, Direction::NORTH);
 
     // TODO
     // FAZER ESSA PARTE ACHANDO REALMENTE DIRECAO VALIDA PARA A SNAKE
@@ -83,7 +72,6 @@ bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPo
     int map[sizeBoard.y][sizeBoard.x];
     for( int i=0 ; i < sizeBoard.y ; i++ ){
         for( int j=0 ; j < sizeBoard.x; j++ ){
-
             if( gm.isWall( currentBoard[i][j] ) ){ // se a posicao atual eh uma parede, tá ocupado
                 map[i][j] = 1;
             } else if( gm.isInvisibleWall( currentBoard[i][j] ) ){  // se a posicao atual eh uma parede invisivel, tá ocupado
@@ -95,6 +83,10 @@ bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPo
 
         }
     }
+
+    // sentando posicoes iguais a do corpo do snake como ocupadas
+/*    for (auto i = 0u; i < snakeBody.size(); ++i)
+        map[snakeBody[i].y][snakeBody[i].x] = 1;*/
 
 
     // =========== BACKTRACKING ============ //
@@ -153,6 +145,8 @@ bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPo
             Position vizinho;
             for (auto i = 0u; i < neighbourhood.size(); i++)
             {
+               // std::cout << neighbourhood[i].y <<" "<< neighbourhood[i].x << " é body? " << is_snakeBody(neighbourhood[i]) << "\n";
+                /* se posicao vizinha está livre e nao é corpo da cobra... */
                 if( map[neighbourhood[i].y][neighbourhood[i].x] == 0 ){
                     vizinho = neighbourhood[i];   // determina quem eh o vizinho
                     freeSpaces -= 1; // diminui um espaco livre

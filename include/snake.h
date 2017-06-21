@@ -37,13 +37,22 @@ class Snake {
          *        obs: não considerar a ultima posição como parte do corpo
          *  @return true se for uma posição em que a cobra ocupa, falsa caso contrário
          */
-        bool is_body(const Position & pos) const;
+        bool is_snakeBody(const Position & pos) const;
+
+        /*! */
+        bool is_valid_position( Position pos, Position size );
+
+        /*! @brief determina se uma posição é válida e relação a um tabuleiro
+         *  @param pos posição a ser analisada
+         *  @param size dimensoes do tabuleiro
+         *  @return true se a posição for válida, false caso contrário */
+        Position adjacent_position( Position pos, direction_t dir );
 
 	public:
 	    int sizeSnake;                               //<! tamanho da cobra
         std::deque<Position> listDirections;         //<! lista de direcoes que a snake deve seguir
         int currentDirection;                        //<! direcao atual
-        std::deque<Position> snake;
+        std::deque<Position> snakeBody;              //<! posicoes do corpo da cobra 
 
 };
 
