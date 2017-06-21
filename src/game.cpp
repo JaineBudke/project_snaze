@@ -79,10 +79,11 @@ bool Game::moveSnake(){
     for(auto i = 0u; i < sk.snake.size(); i++)
         lv.currentBoard[sk.snake[i].y][sk.snake[i].x] = ' ';
 
-    //std::cout << "snake size " <<  sk.snake.size() << "\n"; @edivania - meus testes
-    //std::cin.ignore(); //esperar enter
+    std::cout << "snake size " <<  sk.snake.size() << "\n"; //@edivania - meus testes
+    std::cin.ignore(); //esperar enter
 
     Position dir = sk.listDirections[sk.currentDirection];
+
     sk.snake.push_front( dir );
 
     Position back = sk.snake.back(); //VAI PODER APAGAR ISTO, QND DER CERTO
@@ -206,11 +207,15 @@ void Game::expandSnake(){
         sk.sizeSnake += 1; // snake cresce
     }
 
-    // SE tamanho da snake for maior que 1 ela cresce
+    // SE tamanho da snake for maior a 1 ela cresce
     if( sk.sizeSnake >= 1 ){
         sk.listDirections.clear();
         sk.currentDirection = 0;
         lv.initial = sk.snake.back();
+
+        /*AQUI NA VERDADE TENHO QUE GERAR UMA NOVA PÓS VALIDA !!!!!!!!1 PRA HEAD*/
+        sk.snake.push_front( sk.snake.front() ); // add nova posição para uma nova parte do corpo
+
         sk.sizeSnake += 1; // snake cresce
     }
 
