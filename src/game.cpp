@@ -88,9 +88,9 @@ void Game::clear_snake_of_board()
      @return 1 se cobra chegou na maca, bateu na parede ou rabo. 0 otherwise. */
 bool Game::moveSnake(){
     //std::cin.ignore(); //esperar enter
-    
+
     /* apaga desenho das antigas posicoes da cobra */
-    clear_snake_of_board();    
+    clear_snake_of_board();
 
     Position dir = sk.listDirections[sk.currentDirection];
     sk.snakeBody.push_front( dir );
@@ -253,7 +253,7 @@ void Game::runSnake(){
 
     bool stop = moveSnake();
 
-    // se não há solução, execução para e vai pro estado CRASH 
+    // se não há solução, execução para e vai pro estado CRASH
     if( solve == false ){
     	currentState = CRASH;
     	return;

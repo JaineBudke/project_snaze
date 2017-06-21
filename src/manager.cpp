@@ -241,19 +241,38 @@ void Manager::render(){
 //** @brief Exibe os resultados finais do jogo para o jogador.
 void Manager::render_log(){
 
-    std::cout << ">>> O jogo terminou!\n";
     // - recupera state do jogador
     bool result = gm.getState();
 
+
+    system("clear");
+    std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
+    std::cout << ":::          ////////    ////////    ///    ////////////    ///////////     //////////         :::\n";
+    std::cout << ":::         ///          ///   ///   ///    ///      ///            ///     ////               :::\n";
+    std::cout << ":::         ///////      ///    ///  ///    ////////////         ///        //////////         :::\n";
+    std::cout << ":::              ///     ///     /// ///    ///      ///      ///           ////               :::\n";
+    std::cout << ":::        ////////      ///      //////    ///      ///    ///////////     //////////         :::\n";
+    std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
+
+    std::cout << ":::                                                                                            :::\n";
+    std::cout << ":::                                     O jogo terminou!                                       :::\n";
+
     // - se jogador venceu dá os parabens
     if( result == true ){
-        std::cout << ">>> Parabéns! Você completou todos os níveis do jogo!\n";
+        std::cout << ":::                       Parabéns! Você completou todos os níveis do jogo!                    :::\n";
     }
+
     // - se jogador perdeu propõe jogar novamente
     if( result == false ){
-        std::cout << ">>> Que pena... Parece que suas vidas terminaram\n";
-        std::cout << ">>> Que tal começar um novo jogo? Talvez você tenha mais sorte da próxima vez\n";
-        std::cout << ">>> Boa sorte! ;)\n";
+        std::cout << ":::                      Que pena... Parece que suas vidas terminaram                   :::\n";
+        std::cout << ":::        Que tal começar um novo jogo? Talvez você tenha mais sorte da próxima vez          :::\n";
+        std::cout << ":::                                              Boa sorte! ;)                                      :::\n";
     }
+
+    std::cout << ":::                                                                                            :::\n";
+    std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
+
+
+
 
 }
