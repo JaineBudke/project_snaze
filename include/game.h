@@ -85,15 +85,6 @@ class Game {
         bool isInitialPosition( char ch );
 
 
-        /** @brief Verifica se a snake colidiu com o tail.
-             @return 1 se colidiu, 0 otherwise */
-        bool collideTail( );
-
-
-        /** @brief Verifica se a snake colidiu com a parede.
-             @return 1 se colidiu, 0 otherwise */
-        bool collideWall( );
-
         /** @brief Verifica se a snake chegou na maca.
              @return 1 se chegou, 0 otherwise */
         bool eatingApple( );

@@ -33,19 +33,24 @@ class Snake {
             @return 1 se for possível, 0 se for impossível. */
         bool solveMaze( std::vector<std::string> currentBoard, Position initialPosition, Position sizeBoard, Position apple );
 
-        /*! @brief verificar se posição passsada faz parte do corpo da cobra
-         *        obs: não considerar a ultima posição como parte do corpo
-         *  @return true se for uma posição em que a cobra ocupa, falsa caso contrário
+        /** @brief verificar se posição passsada faz parte do corpo da cobra
+                   obs: não considerar a ultima posição como parte do corpo
+            @return true se for uma posição em que a cobra ocupa, falsa caso contrário
          */
         bool is_snakeBody(const Position & pos) const;
 
-        /*! */
+
+        /** @brief determina se uma posição é válida e relação a um tabuleiro
+            @param pos posição a ser analisada
+            @param size dimensoes do tabuleiro
+            @return true se a posição for válida, false caso contrário */
         bool is_valid_position( Position pos, Position size );
 
-        /*! @brief determina se uma posição é válida e relação a um tabuleiro
-         *  @param pos posição a ser analisada
-         *  @param size dimensoes do tabuleiro
-         *  @return true se a posição for válida, false caso contrário */
+
+        /** @brief Retorna a posição adjacente solicitada de acordo com a direcao.
+            @param pos Posicao atual
+            @param dir Direcao que deseja levar a posição atual.
+            @return Posição adjacente. */
         Position adjacent_position( Position pos, direction_t dir );
 
 	public:
@@ -53,6 +58,7 @@ class Snake {
         std::deque<Position> listDirections;         //<! lista de direcoes que a snake deve seguir
         int currentDirection;                        //<! direcao atual
         std::deque<Position> snakeBody;              //<! posicoes do corpo da cobra 
+
 
 };
 

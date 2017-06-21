@@ -10,6 +10,10 @@
 
 #include "snake.h"
 
+/** @brief Retorna a posição adjacente solicitada de acordo com a direcao.
+    @param pos Posicao atual
+    @param dir Direcao que deseja levar a posição atual.
+    @return Posição adjacente. */
 Position Snake::adjacent_position( Position pos, direction_t dir )
 {
     switch( dir )
@@ -34,6 +38,10 @@ Position Snake::adjacent_position( Position pos, direction_t dir )
     return pos;
 }
 
+/** @brief determina se uma posição é válida e relação a um tabuleiro
+    @param pos posição a ser analisada
+    @param size dimensoes do tabuleiro
+    @return true se a posição for válida, false caso contrário */
 bool Snake::is_valid_position( Position pos, Position size )
 {
     return (pos.x >= 0 and pos.x < size.x and pos.y >= 0 and pos.y < size.y );
@@ -58,9 +66,6 @@ bool Snake::is_snakeBody(const Position & pos) const
 /** @brief Tenta encontrar caminho para chegar na maçã.
     @return 1 se for possível, 0 se for impossível. */
 bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPosition, Position sizeBoard, Position apple ){
-
-    // TODO
-    // FAZER ESSA PARTE ACHANDO REALMENTE DIRECAO VALIDA PARA A SNAKE
 
     Game gm; // instancia apenas para acessar funcoes de auxilio
 
@@ -145,7 +150,7 @@ bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPo
             Position vizinho;
             for (auto i = 0u; i < neighbourhood.size(); i++)
             {
-               // std::cout << neighbourhood[i].y <<" "<< neighbourhood[i].x << " é body? " << is_snakeBody(neighbourhood[i]) << "\n";
+                // std::cout << neighbourhood[i].y <<" "<< neighbourhood[i].x << " é body? " << is_snakeBody(neighbourhood[i]) << "\n";
                 /* se posicao vizinha está livre e nao é corpo da cobra... */
                 if( map[neighbourhood[i].y][neighbourhood[i].x] == 0 ){
                     vizinho = neighbourhood[i];   // determina quem eh o vizinho

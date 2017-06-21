@@ -99,12 +99,6 @@ bool Game::moveSnake(){
     /* pintar toda a cobra no tab */
     paint_snake_on_board();
 
-    // se colidiu de alguma forma
-    if( collideTail() or collideWall() ){
-        currentState = CRASH;
-        return true; // muda stop pra true
-    }
-
     // se chegou na maçã
     if( eatingApple() ){
         currentState = EXPAND;
@@ -151,24 +145,6 @@ bool Game::isInitialPosition( char ch ){
 }
 
 
-/** @brief Verifica se a snake colidiu com o tail.
-     @return 1 se colidiu, 0 otherwise */
-bool Game::collideTail( ){
-
-    // TODO
-
-    return false;
-}
-
-/** @brief Verifica se a snake colidiu com a parede.
-     @return 1 se colidiu, 0 otherwise */
-bool Game::collideWall( ){
-
-    // TODO
-
-    return false;
-}
-
 /** @brief Verifica se a snake chegou na maca.
      @return 1 se chegou, 0 otherwise */
 bool Game::eatingApple( ){
@@ -208,7 +184,7 @@ void Game::expandSnake(){
     if( sk.sizeSnake >= 1 ){
         sk.listDirections.clear();
         sk.currentDirection = 0;
-        lv.initial = sk.snakeBody.back();
+        lv.initial = sk.snakeBody.front();
 
         /*AQUI NA VERDADE TENHO QUE GERAR UMA NOVA PÓS VALIDA !!!!!!!!1 PRA HEAD*/
         sk.snakeBody.push_front( sk.snakeBody.front() ); // add nova posição para uma nova parte do corpo
@@ -273,14 +249,21 @@ void Game::deadSnake(){
 /** @brief A cobra anda a quantidade de vezes até chegar na maçã. */
 void Game::runSnake(){
 
-    sk.solveMaze( lv.currentBoard, lv.initial, sizesBoards[ lv.currentLevel - 1 ], maca );
+    bool solve = sk.solveMaze( lv.currentBoard, lv.initial, sizesBoards[ lv.currentLevel - 1 ], maca );
 
     bool stop = moveSnake();
+
+    // se não há solução, execução para e vai pro estado CRASH 
+    if( solve == false ){
+    	currentState = CRASH;
+    	return;
+    }
 
     // verifica se a condicao de parada foi acionada
     if( stop == false ){
         currentState = RUN;
     }
+
 
 }
 
