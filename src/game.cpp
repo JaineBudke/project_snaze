@@ -75,18 +75,28 @@ Position Game::throwApple(){
      @return 1 se cobra chegou na maca, bateu na parede ou rabo. 0 otherwise. */
 bool Game::moveSnake(){
 
+    /* apaga desenho das antigas posicoes da cobra */
+    for(auto i = 0u; i < sk.snake.size(); i++)
+        lv.currentBoard[sk.snake[i].y][sk.snake[i].x] = ' ';
+
+    //std::cout << "snake size " <<  sk.snake.size() << "\n"; @edivania - meus testes
+    //std::cin.ignore(); //esperar enter
 
     Position dir = sk.listDirections[sk.currentDirection];
     sk.snake.push_front( dir );
 
-    Position back = sk.snake.back();
+    Position back = sk.snake.back(); //VAI PODER APAGAR ISTO, QND DER CERTO
 
     sk.snake.pop_back();
 
-    Position front = sk.snake.front();
+    Position front = sk.snake.front(); //VAI PODER APAGAR ISTO, QND DER CERTO
 
-    lv.currentBoard[back.y][back.x] = ' ';
-    lv.currentBoard[front.y][front.x] = '~';
+    /* tentativa de desenhar toda a cobra */
+    for(auto i = 0u; i < sk.snake.size(); i++)
+        lv.currentBoard[sk.snake[i].y][sk.snake[i].x] = '~';
+
+    /*lv.currentBoard[back.y][back.x] = ' ';
+    lv.currentBoard[front.y][front.x] = '~';*/
 
 
     // se colidiu de alguma forma
@@ -167,7 +177,7 @@ bool Game::eatingApple( ){
 
     Position pos = sk.snake.front();
 
-    if( pos.x == maca.x and pos.y == maca.y ){
+    if( pos == maca ){
         return true;
     } else {
         return false;

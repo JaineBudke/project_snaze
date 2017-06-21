@@ -43,6 +43,11 @@ bool is_valid_position( Position pos, Position size )
     return (pos.x >= 0 and pos.x < size.x and pos.y >= 0 and pos.y < size.y );
 }
 
+// TODO
+// 3. Verifica se os vizinhos estão livres (e se sao validos) ou tem maçã
+// bool is_free_neighbourhood( const Position* & nbh_ ) const
+
+
 bool Snake::is_body(const Position & pos) const
 {
     int i(snake.size()-2);
@@ -67,8 +72,6 @@ bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPo
 
     // TODO
     // FAZER ESSA PARTE ACHANDO REALMENTE DIRECAO VALIDA PARA A SNAKE
-
-
 
     Game gm; // instancia apenas para acessar funcoes de auxilio
 
@@ -96,7 +99,6 @@ bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPo
 
     // =========== BACKTRACKING ============ //
 
-
     // 1. Tornar initialPosition a celula atual e marcar como visitada
     currentPosition = initialPosition;
     map[initialPosition.y][initialPosition.x] = 1; // torna espaco ocupado
@@ -105,36 +107,27 @@ bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPo
     // 2. Buscar celulas ainda não visitadas
     while( freeSpaces > 0 ){ // vai rodar enquanto tiver espaco vazios no mapa
 
-        Position neigh_north, neigh_south, neigh_east, neigh_west; //<! posicoes dos vizinhos
+        /* DIMINUINDO LINHAS DE CODIGOS */
+        /* SE MUDAR A ORDEM DOS VIZINHOS DÁ FALHA DE SEG. (WHY)*/
+        std::vector<Position> neighbourhood; //<! visinhos
+        neighbourhood.push_back(adjacent_position(currentPosition, NORTH));//[0]
+        neighbourhood.push_back(adjacent_position(currentPosition, SOUTH));//[1]
+        neighbourhood.push_back(adjacent_position(currentPosition, EAST)); //[3]
+        neighbourhood.push_back(adjacent_position(currentPosition, WEST)); //[2]
 
-        // define posicoes dos vizinhos
-        neigh_north = adjacent_position(currentPosition, NORTH);
-        neigh_south = adjacent_position(currentPosition, SOUTH);
-        neigh_east  = adjacent_position(currentPosition, EAST);
-        neigh_west  = adjacent_position(currentPosition, WEST);
 
         // se a posicao for invalida:
         // muda posicao pra inicial, que sabe q tá ocupada (foi ocupada no passo 1)
         // isso evita ele tentar acessar em algum momento um valor que nao existe - falha de segmentacao
-        if( not is_valid_position( neigh_north, sizeBoard ) ){ // se a posicao for invalida
-            neigh_north = initialPosition;
-        }
-        if( not is_valid_position( neigh_south, sizeBoard ) ){ // se a posicao for invalida
-            neigh_south = initialPosition;
-        }
-        if( not is_valid_position( neigh_east, sizeBoard ) ){ // se a posicao for invalida
-            neigh_east = initialPosition;
-        }
-        if( not is_valid_position( neigh_west, sizeBoard ) ){ // se a posicao for invalida
-            neigh_west = initialPosition;
-        }
+        for (auto i = 0u; i < neighbourhood.size(); i++)
+            if( not is_valid_position( neighbourhood[i], sizeBoard ) ) // se a posicao do visinho for invalida
+                neighbourhood[i] = initialPosition;
 
         // verifica se a posicao atual eh a maca
         if( currentPosition == apple ){
 
-             // dá o push da maca pra pilha
+            // dá o push da maca pra pilha
             marked.push( currentPosition );
-
 
             while( !(marked.empty()) ){
 
@@ -145,77 +138,27 @@ bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPo
                 listDirections.push_front( dir );
                 // tira ele
                 marked.pop();
-
             }
 
             return true;
 
         }
         // 3. Verifica se os vizinhos estão livres (e se sao validos) ou tem maçã
-        else if( map[neigh_north.y][neigh_north.x] == 0
-            or map[neigh_south.y][neigh_south.x]   == 0
-            or map[neigh_east.y][neigh_east.x]     == 0
-            or map[neigh_west.y][neigh_west.x]     == 0 ){ // vizinhos livres (não sao parede nem foram visitados)
-
-
-            //=== AS VEZES ACHA MENOR CAMINHO
-
-            //tentando achar caminho menor:
-            //ex: se a cobra esta disposta abaixo e ao lado esquerdo da maça ela tem que tentar primeir ir pro norte e leste
-            // std::deque<Position> best_neigh;
-            // //best_position_togo(best_neigh, currentPosition, apple); //seta a pilha best_neigh
-            // if( currentPosition.y <= apple.y )
-            // {
-            //     best_neigh.push_front( neigh_east );
-            //     best_neigh.push_back( neigh_west );
-            // }
-            // else
-            // {
-            //     best_neigh.push_front( neigh_west );
-            //     best_neigh.push_back( neigh_east );
-            // }
-
-            // if( currentPosition.x <= apple.x )
-            // {
-            //     best_neigh.push_front( neigh_south );
-            //     best_neigh.push_back( neigh_north );
-            // }
-            // else
-            // {
-            //     best_neigh.push_front( neigh_north );
-            //     best_neigh.push_back( neigh_south );
-            // }
+        else if( map[neighbourhood[0].y][neighbourhood[0].x] == 0
+            or map[neighbourhood[1].y][neighbourhood[1].x]   == 0
+            or map[neighbourhood[2].y][neighbourhood[2].x]   == 0
+            or map[neighbourhood[3].y][neighbourhood[3].x]   == 0 ){ // vizinhos livres (não sao parede nem foram visitados)
 
             // // 4. escolhe um dos vizinhos (em um deles vai entrar obrigatoriamente)
             Position vizinho;
-            // for (auto i = 0u; i < best_neigh.size(); i++)
-            // {
-            //     if( map[best_neigh[i].y][best_neigh[i].x] == 0 ){
-            //         vizinho = best_neigh[i];   // determina quem eh o vizinho
-            //         freeSpaces -= 1; // diminui um espaco livre
-            //         map[best_neigh[i].y][best_neigh[i].x] = 1; // marca no map que a posicao tá ocupada
-            //         break;
-            //     }
-            // }
-
-            //CAMINHO MAIOR
-
-            if( map[neigh_north.y][neigh_north.x] == 0 ){
-                vizinho = neigh_north;   // determina quem eh o vizinho
-                freeSpaces -= 1; // diminui um espaco livre
-                map[neigh_north.y][neigh_north.x] = 1; // marca no map que a posicao tá ocupada
-            } else if( map[neigh_south.y][neigh_south.x] == 0 ){
-                vizinho = neigh_south;
-                freeSpaces -= 1;
-                map[neigh_south.y][neigh_south.x] = 1;
-            } else if( map[neigh_east.y][neigh_east.x]   == 0 ){
-                vizinho = neigh_east;
-                freeSpaces -= 1;
-                map[neigh_east.y][neigh_east.x] = 1;
-            } else if( map[neigh_west.y][neigh_west.x]   == 0 ){
-                vizinho = neigh_west;
-                freeSpaces -= 1;
-                map[neigh_west.y][neigh_west.x] = 1;
+            for (auto i = 0u; i < neighbourhood.size(); i++)
+            {
+                if( map[neighbourhood[i].y][neighbourhood[i].x] == 0 ){
+                    vizinho = neighbourhood[i];   // determina quem eh o vizinho
+                    freeSpaces -= 1; // diminui um espaco livre
+                    map[neighbourhood[i].y][neighbourhood[i].x] = 1; // marca no map que a posicao tá ocupada
+                    break;
+                }
             }
 
              // dá o push da posicao atual pra pilha

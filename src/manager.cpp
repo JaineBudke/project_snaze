@@ -177,7 +177,7 @@ void Manager::process_events(){
 
     // pausa por alguns segundos
     //usleep(1000000);
-    usleep(100000);
+    usleep(50000);
 }
 
 //** @brief Atualiza o estado do jogo.
