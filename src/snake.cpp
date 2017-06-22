@@ -93,7 +93,6 @@ bool Snake::solveMaze( std::vector<std::string> currentBoard, Position initialPo
 /*    for (auto i = 0u; i < snakeBody.size(); ++i)
         map[snakeBody[i].y][snakeBody[i].x] = 1;*/
 
-
     // =========== BACKTRACKING ============ //
 
     // 1. Tornar initialPosition a celula atual e marcar como visitada

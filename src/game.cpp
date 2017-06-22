@@ -29,7 +29,7 @@ Position Game::initialPosition(){
             if( lv.currentBoard[i][j] == '*' ){
                 Position inicial;
                 inicial.x = j; // coluna
-            	   inicial.y = i; // linha
+            	inicial.y = i; // linha
                 lv.initial = inicial;
             	   return inicial;
             }

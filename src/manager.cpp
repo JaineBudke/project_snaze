@@ -54,7 +54,6 @@ Manager::SnakeError Manager::parsing(  ){
     }
 
     return BOARD_OK;
-
 }
 
 
@@ -116,7 +115,6 @@ Manager::SnakeError Manager::initialize( char * arq ){
     auto result = parsing();
 
     return result;
-
 }
 
 
@@ -127,13 +125,15 @@ void Manager::welcome(){
 
     system("clear");
     std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
+    std::cout << ":::                                                                                            :::\n";
     std::cout << ":::          ////////    ////////    ///    ////////////    ///////////     //////////         :::\n";
     std::cout << ":::         ///          ///   ///   ///    ///      ///            ///     ////               :::\n";
     std::cout << ":::         ///////      ///    ///  ///    ////////////         ///        //////////         :::\n";
     std::cout << ":::              ///     ///     /// ///    ///      ///      ///           ////               :::\n";
     std::cout << ":::        ////////      ///      //////    ///      ///    ///////////     //////////         :::\n";
+    std::cout << ":::                                                                                            :::\n";
     std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
-
+    std::cout << ":::                                                                                            :::\n";
     std::cout << ":::                                     Bem-vindo ao Snaze!                                    :::\n";
     std::cout << ":::                             Esta é uma simulação do game Snake.                            :::\n";
     std::cout << ":::                       O jogo possui " << n_levels << " fases e você tem " << n_lives << " vidas! Boa sorte!                 :::\n";
@@ -169,15 +169,12 @@ bool Manager::gameOver(){
     else {
         return false;
     }
-
 }
 
 //** @brief Faz a chamada da próxima rodada do jogo.
 void Manager::process_events(){
-
     // pausa por alguns segundos
-    //usleep(100000);
-
+    usleep(100000);
 }
 
 //** @brief Atualiza o estado do jogo.
@@ -213,11 +210,13 @@ void Manager::render(){
     std::vector<std::string> currentBoard_ = gm.getCurrentBoard();
     Position initial = gm.initialPosition();
     std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
+    std::cout << ":::                                                                                            :::\n";
     std::cout << ":::          ////////    ////////    ///    ////////////    ///////////     //////////         :::\n";
     std::cout << ":::         ///          ///   ///   ///    ///      ///            ///     ////               :::\n";
     std::cout << ":::         ///////      ///    ///  ///    ////////////         ///        //////////         :::\n";
     std::cout << ":::              ///     ///     /// ///    ///      ///      ///           ////               :::\n";
     std::cout << ":::        ////////      ///      //////    ///      ///    ///////////     //////////         :::\n";
+    std::cout << ":::                                                                                            :::\n";
     std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
 
     std::cout << ":::                                                                                            :::\n";
@@ -231,10 +230,27 @@ void Manager::render(){
 
     std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
     std::cout << ":::                                                                                            :::\n";
-
+    std::cout << ":::                                                                                            :::\n";
+    
+    //numero de espaços de cada lado para centralizar
+    int numero_espacos = (int) ( 92 - currentBoard_.front().size() ) / 2;
+    
     for( int i=0; i < currentBoard_.size() ; i++ ){
-        std::cout << "::: " << currentBoard_[i] << "\n";
+        std::cout << "::: ";
+        
+        for (int j = 0; j < numero_espacos; ++j) //imprimir espaçoes
+            std::cout << " ";
+
+        std::cout << currentBoard_[i]; //imprimir caracter do tab
+
+        for (int j = 0; j < numero_espacos; ++j) //imprimir espaços
+            std::cout << " ";
+        
+        std::cout << ":::\n";
     }
+
+    std::cout << ":::                                                                                            :::\n";
+    std::cout << ":::                                                                                            :::\n";
     std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
 }
 
@@ -247,13 +263,15 @@ void Manager::render_log(){
 
     system("clear");
     std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
+    std::cout << ":::                                                                                            :::\n";
     std::cout << ":::          ////////    ////////    ///    ////////////    ///////////     //////////         :::\n";
     std::cout << ":::         ///          ///   ///   ///    ///      ///            ///     ////               :::\n";
     std::cout << ":::         ///////      ///    ///  ///    ////////////         ///        //////////         :::\n";
     std::cout << ":::              ///     ///     /// ///    ///      ///      ///           ////               :::\n";
     std::cout << ":::        ////////      ///      //////    ///      ///    ///////////     //////////         :::\n";
+    std::cout << ":::                                                                                            :::\n";
     std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
-
+    std::cout << ":::                                                                                            :::\n";
     std::cout << ":::                                                                                            :::\n";
     std::cout << ":::                                     O jogo terminou!                                       :::\n";
 
@@ -270,9 +288,6 @@ void Manager::render_log(){
     }
 
     std::cout << ":::                                                                                            :::\n";
+    std::cout << ":::                                                                                            :::\n";
     std::cout << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n";
-
-
-
-
 }
